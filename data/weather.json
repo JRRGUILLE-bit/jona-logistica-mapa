@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-16T19:16:30-03:00",
+  "generated_at": "2026-07-16T20:12:35-03:00",
   "timezone": "America/Montevideo",
   "weekends": [
     {
@@ -660,10 +660,19 @@
     "metsul": {
       "status": "ok",
       "kind": "Análisis humanos",
-      "fetched_at": "2026-07-16T19:16:30-03:00",
+      "fetched_at": "2026-07-16T20:12:35-03:00",
       "page_url": "https://metsul.com/categoria/uruguai/",
       "api_url": "https://metsul.com/wp-json/wp/v2/posts?categories=23&per_page=12&_fields=id%2Cdate%2Cmodified%2Clink%2Ctitle%2Cexcerpt%2Ccontent%2Cauthor",
       "articles": [
+        {
+          "id": 267593,
+          "published_at": "2026-07-16T19:52:52",
+          "modified_at": "2026-07-16T19:52:52",
+          "title": "Aquecimento adiabático trará calor extraordinário para julho",
+          "excerpt": "O calor passou dos 30ºC hoje no Rio Grande do Sul, o que não ocorria desde meados do outono, e a MetSul Meteorologia alerta que o calor vai aumentar ainda mais entre esta sexta (17) e o sábado (18) no estado com a atuação de uma poderosa corrente de jato em baixos níveis sobre o […]",
+          "url": "https://metsul.com/aquecimento-adiabatico-trara-calor-extraordinario-para-julho/",
+          "author": 853
+        },
         {
           "id": 267585,
           "published_at": "2026-07-16T18:58:48",
@@ -744,23 +753,14 @@
           "excerpt": "O nível do Rio Uruguai permanece em elevação na Fronteira Oeste do Rio Grande do Sul e já supera a cota de inundação em São Borja com a cheia provocada por volumes excessivos de chuva nos últimos dias. Dados do começo da noite deste sábado (4) indicavam o nível do Uruguai em 9,23 metros em […]",
           "url": "https://metsul.com/repique-de-cheia-coloca-oeste-gaucho-em-alerta/",
           "author": 853
-        },
-        {
-          "id": 267345,
-          "published_at": "2026-07-04T17:05:33",
-          "modified_at": "2026-07-04T17:13:02",
-          "title": "Terceira tarde seguida de muito frio tem até 5ºC",
-          "excerpt": "O Rio Grande do Sul experimentou neste sábado, a terceira tarde seguida de muito frio com diversas localidades apresentando marcas de um dígito no interior e temperaturas ao redor e pouco acima de 10ºC na Grande Porto Alegre. A terceira tarde seguida de muito frio se explica pela presença abundante de nuvens que impediu maior […]",
-          "url": "https://metsul.com/terceira-tarde-seguida-de-muito-frio-tem-ate-5oc/",
-          "author": 861
         }
       ]
     },
     "inumet": {
       "status": "ok",
       "kind": "Fuente oficial",
-      "fetched_at": "2026-07-16T19:16:30-03:00",
-      "updated_at": "2026-07-16T18:00:00-03:00",
+      "fetched_at": "2026-07-16T20:12:35-03:00",
+      "updated_at": "2026-07-16T19:50:00-03:00",
       "forecast_url": "https://www.inumet.gub.uy/tiempo/pronostico",
       "forecast": [
         {
@@ -827,7 +827,7 @@
     "models": {
       "status": "ok",
       "kind": "Modelos numéricos",
-      "fetched_at": "2026-07-16T19:16:30-03:00",
+      "fetched_at": "2026-07-16T20:12:35-03:00",
       "provider": "Open-Meteo",
       "provider_url": "https://open-meteo.com/",
       "models": [

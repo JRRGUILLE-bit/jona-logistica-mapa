@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-19T19:35:13-03:00",
+  "generated_at": "2026-07-19T20:11:46-03:00",
   "timezone": "America/Montevideo",
   "weekends": [
     {
@@ -870,10 +870,19 @@
     "metsul": {
       "status": "ok",
       "kind": "Análisis humanos",
-      "fetched_at": "2026-07-19T19:35:13-03:00",
+      "fetched_at": "2026-07-19T20:11:46-03:00",
       "page_url": "https://metsul.com/categoria/uruguai/",
       "api_url": "https://metsul.com/wp-json/wp/v2/posts?categories=23&per_page=12&_fields=id%2Cdate%2Cmodified%2Clink%2Ctitle%2Cexcerpt%2Ccontent%2Cauthor",
       "articles": [
+        {
+          "id": 267692,
+          "published_at": "2026-07-19T19:40:52",
+          "modified_at": "2026-07-19T19:40:52",
+          "title": "Chuva vai aumentar com risco de alagamentos e inundações",
+          "excerpt": "O fim de semana foi marcado por calor fora do normal, vento Norte perto e acima de 100 km/h e temporais no Rio Grande do Sul com a chuva avançando pelo estado, sobretudo neste domingo, e teve acumulados altos em parte do território gaúcho. O calor foi mais intenso no Litoral Norte pela interação do […]",
+          "url": "https://metsul.com/chuva-vai-aumentar-com-risco-de-alagamentos-e-inundacoes/",
+          "author": 861
+        },
         {
           "id": 267675,
           "published_at": "2026-07-19T12:59:06",
@@ -954,22 +963,13 @@
           "excerpt": "A história climática gaúcha foi reescrita nesta sexta (17) com um dia excepcionalmente quente em julho e que teve ainda vento Norte forte a intenso em grande parte do estado, até com rajadas perto de 100 km/h em alguns pontos, por conta de uma poderosa corrente de jato em baixos níveis. Porto Alegre teve máxima […]",
           "url": "https://metsul.com/jato-traz-vento-de-quase-100-km-h-causa-estragos-e-provoca-calor-recorde/",
           "author": 853
-        },
-        {
-          "id": 267614,
-          "published_at": "2026-07-17T09:53:21",
-          "modified_at": "2026-07-17T10:02:30",
-          "title": "Risco crítico de granizo médio a grande na Argentina e Uruguai",
-          "excerpt": "A MetSul Meteorologia alerta para um cenário de alto risco de tempo severo a muito severo no Uruguai na tarde e noite desta sexta-feira (17) e ainda durante o sábado (18) como consequência de uma frente quente que vai provocar muitos temporais no país, alguns fortes a severos, sobretudo de granizo. De acordo com a […]",
-          "url": "https://metsul.com/risco-critico-de-granizo-medio-a-grande-na-argentina-e-uruguai/",
-          "author": 861
         }
       ]
     },
     "inumet": {
-      "status": "stale",
+      "status": "ok",
       "kind": "Fuente oficial",
-      "fetched_at": "2026-07-19T19:09:09-03:00",
+      "fetched_at": "2026-07-19T20:11:46-03:00",
       "updated_at": "2026-07-19T18:00:00-03:00",
       "forecast_url": "https://www.inumet.gub.uy/tiempo/pronostico",
       "forecast": [
@@ -1032,13 +1032,12 @@
         "active": false,
         "summary": "No hay advertencia meteorológica vigente.",
         "url": "https://www.inumet.gub.uy/alerta"
-      },
-      "error": "No se encontró la fecha de actualización de INUMET"
+      }
     },
     "models": {
       "status": "ok",
       "kind": "Modelos numéricos",
-      "fetched_at": "2026-07-19T19:35:13-03:00",
+      "fetched_at": "2026-07-19T20:11:46-03:00",
       "provider": "Open-Meteo",
       "provider_url": "https://open-meteo.com/",
       "models": [
@@ -1058,7 +1057,5 @@
       "errors": []
     }
   },
-  "errors": [
-    "inumet: No se encontró la fecha de actualización de INUMET"
-  ]
+  "errors": []
 }

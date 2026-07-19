@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-19T12:14:57-03:00",
+  "generated_at": "2026-07-19T13:12:56-03:00",
   "timezone": "America/Montevideo",
   "weekends": [
     {
@@ -853,33 +853,52 @@
         }
       ],
       "inumet": null,
-      "metsul_articles": []
+      "metsul_articles": [
+        {
+          "id": 267670,
+          "published_at": "2026-07-19T12:29:44",
+          "modified_at": "2026-07-19T12:03:38",
+          "title": "Patagônia terá maior frio do ano com -20ºC; chega no Brasil?",
+          "excerpt": "A Patagônia argentina ingressa neste fim de semana na mais intensa onda de frio de 2026 na região com a chegada de uma poderosa massa de ar de origem antártica que derrubou as temperaturas e trará marcas geladas em níveis extremos. O ar gelado começou a avançar no sábado e deve manter o frio muito […]",
+          "url": "https://metsul.com/patagonia-tera-maior-frio-do-ano-com-20oc-chega-no-brasil/",
+          "author": 861
+        }
+      ]
     }
   ],
   "sources": {
     "metsul": {
       "status": "ok",
       "kind": "Análisis humanos",
-      "fetched_at": "2026-07-19T12:14:57-03:00",
+      "fetched_at": "2026-07-19T13:12:56-03:00",
       "page_url": "https://metsul.com/categoria/uruguai/",
       "api_url": "https://metsul.com/wp-json/wp/v2/posts?categories=23&per_page=12&_fields=id%2Cdate%2Cmodified%2Clink%2Ctitle%2Cexcerpt%2Ccontent%2Cauthor",
       "articles": [
         {
+          "id": 267675,
+          "published_at": "2026-07-19T12:59:06",
+          "modified_at": "2026-07-19T13:00:13",
+          "title": "Primeira semana típica de El Niño terá muita chuva e tempestades",
+          "excerpt": "A semana que começa será a primeira com a atmosfera já em modo de El Niño e o padrão de circulação atmosférica levando a condições típicas dos impactos do fenômeno no Sul do Brasil com previsão de muita chuva e tempo severol alerta a MetSul Meteorologia. O Rio Grande do Sul ingressa neste domingo (19) […]",
+          "url": "https://metsul.com/primeira-semana-tipica-de-el-nino-tera-muita-chuva-e-tempestades/",
+          "author": 861
+        },
+        {
           "id": 267688,
-          "published_at": "2026-07-19T12:01:53",
-          "modified_at": "2026-07-19T12:01:53",
+          "published_at": "2026-07-19T12:58:53",
+          "modified_at": "2026-07-19T13:00:34",
           "title": "Começo do domingo teve chuva de 100 mm e vento de quase 100 km/h",
           "excerpt": "A primeira metade do domingo teve chuva acima de 100 mm e rajadas de vento perto de 100 km/h no Rio Grande do Sul em quadro de forte instabilidade que se intensifica no estado neste começo de semana. O vento muito forte na primeira metade deste domingo teve duas causas distintas. No Oeste e no […]",
           "url": "https://metsul.com/comeco-do-domingo-teve-chuva-de-100-mm-e-vento-de-quase-100-km-h/",
           "author": 861
         },
         {
-          "id": 267675,
-          "published_at": "2026-07-19T11:01:06",
-          "modified_at": "2026-07-19T10:44:40",
-          "title": "Primeira semana típica de El Niño terá muita chuva e tempestades",
-          "excerpt": "A semana que começa será a primeira com a atmosfera já em modo de El Niño e o padrão de circulação atmosférica levando a condições típicas dos impactos do fenômeno no Sul do Brasil com previsão de muita chuva e tempo severol alerta a MetSul Meteorologia. O Rio Grande do Sul ingressa neste domingo (19) […]",
-          "url": "https://metsul.com/primeira-semana-tipica-de-el-nino-tera-muita-chuva-e-tempestades/",
+          "id": 267670,
+          "published_at": "2026-07-19T12:29:44",
+          "modified_at": "2026-07-19T12:03:38",
+          "title": "Patagônia terá maior frio do ano com -20ºC; chega no Brasil?",
+          "excerpt": "A Patagônia argentina ingressa neste fim de semana na mais intensa onda de frio de 2026 na região com a chegada de uma poderosa massa de ar de origem antártica que derrubou as temperaturas e trará marcas geladas em níveis extremos. O ar gelado começou a avançar no sábado e deve manter o frio muito […]",
+          "url": "https://metsul.com/patagonia-tera-maior-frio-do-ano-com-20oc-chega-no-brasil/",
           "author": 861
         },
         {
@@ -944,22 +963,13 @@
           "excerpt": "A MetSul Meteorologia alerta para um cenário de alto risco de tempo severo a muito severo no Uruguai na tarde e noite desta sexta-feira (17) e ainda durante o sábado (18) como consequência de uma frente quente que vai provocar muitos temporais no país, alguns fortes a severos, sobretudo de granizo. De acordo com a […]",
           "url": "https://metsul.com/risco-critico-de-granizo-medio-a-grande-na-argentina-e-uruguai/",
           "author": 861
-        },
-        {
-          "id": 267585,
-          "published_at": "2026-07-16T18:58:48",
-          "modified_at": "2026-07-16T17:28:05",
-          "title": "MetSul reforça alerta: vento Norte muito intenso trará danos e falta de luz",
-          "excerpt": "A MetSul Meteorologia reforça o alerta de uma corrente de jato em baixos níveis (JBN) excepcionalmente intensa e fora do comum que vai atuar entre esta sexta-feira (17) e o sábado (18) no Rio Grande do Sul, transportando ar muito quente de Norte e favorecendo vento Norte forte a muito intenso, o que vai provocar […]",
-          "url": "https://metsul.com/metsul-reforca-alerta-vento-norte-muito-intenso-trara-danos-e-falta-de-luz/",
-          "author": 853
         }
       ]
     },
     "inumet": {
       "status": "ok",
       "kind": "Fuente oficial",
-      "fetched_at": "2026-07-19T12:14:57-03:00",
+      "fetched_at": "2026-07-19T13:12:56-03:00",
       "updated_at": "2026-07-19T12:00:00-03:00",
       "forecast_url": "https://www.inumet.gub.uy/tiempo/pronostico",
       "forecast": [
@@ -1027,7 +1037,7 @@
     "models": {
       "status": "ok",
       "kind": "Modelos numéricos",
-      "fetched_at": "2026-07-19T12:14:57-03:00",
+      "fetched_at": "2026-07-19T13:12:56-03:00",
       "provider": "Open-Meteo",
       "provider_url": "https://open-meteo.com/",
       "models": [

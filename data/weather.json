@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-21T11:22:24-03:00",
+  "generated_at": "2026-07-21T13:41:51-03:00",
   "timezone": "America/Montevideo",
   "weekends": [
     {
@@ -49,7 +49,7 @@
           "confidence": "Alta",
           "headline": "Sin señal fuerte por ahora",
           "summary": "Por ahora los modelos no marcan lluvia significativa.",
-          "rain_probability_max": 12.0,
+          "rain_probability_max": 6.0,
           "precipitation_max": 0.0,
           "temperature_min": 7.9,
           "temperature_max": 17.8,
@@ -163,7 +163,7 @@
             "confidence": "Alta",
             "headline": "Sin señal fuerte por ahora",
             "summary": "Por ahora los modelos no marcan lluvia significativa.",
-            "rain_probability_max": 4.0,
+            "rain_probability_max": 1.0,
             "precipitation_max": 0.0,
             "temperature_min": 10.4,
             "temperature_max": 14.0,
@@ -180,7 +180,7 @@
               "temperature_min": 12.7,
               "temperature_max": 14.0,
               "apparent_min": 12.0,
-              "rain_probability_max": 4.0,
+              "rain_probability_max": 1.0,
               "precipitation_sum": 0.0,
               "cloud_cover_avg": 90.0,
               "wind_speed_max": 5.8,
@@ -225,7 +225,7 @@
         "confidence": "Alta",
         "headline": "Sin señal fuerte por ahora",
         "summary": "Por ahora los modelos no marcan lluvia significativa.",
-        "rain_probability_max": 6.0,
+        "rain_probability_max": 10.0,
         "precipitation_max": 0.3,
         "temperature_min": 9.0,
         "temperature_max": 19.3,
@@ -243,7 +243,7 @@
           "confidence": "Alta",
           "headline": "Sin señal fuerte por ahora",
           "summary": "Por ahora los modelos no marcan lluvia significativa.",
-          "rain_probability_max": 6.0,
+          "rain_probability_max": 10.0,
           "precipitation_max": 0.3,
           "temperature_min": 10.4,
           "temperature_max": 19.3,
@@ -296,7 +296,7 @@
             "confidence": "Alta",
             "headline": "Sin señal fuerte por ahora",
             "summary": "Por ahora los modelos no marcan lluvia significativa.",
-            "rain_probability_max": 0.0,
+            "rain_probability_max": 2.0,
             "precipitation_max": 0.0,
             "temperature_min": 17.9,
             "temperature_max": 19.2,
@@ -313,7 +313,7 @@
               "temperature_min": 19.2,
               "temperature_max": 19.2,
               "apparent_min": 18.6,
-              "rain_probability_max": 0.0,
+              "rain_probability_max": 2.0,
               "precipitation_sum": 0.0,
               "cloud_cover_avg": 99.0,
               "wind_speed_max": 8.0,
@@ -853,27 +853,26 @@
         }
       ],
       "inumet": null,
-      "metsul_articles": [
-        {
-          "id": 267670,
-          "published_at": "2026-07-19T12:29:44",
-          "modified_at": "2026-07-19T12:03:38",
-          "title": "Patagônia terá maior frio do ano com -20ºC; chega no Brasil?",
-          "excerpt": "A Patagônia argentina ingressa neste fim de semana na mais intensa onda de frio de 2026 na região com a chegada de uma poderosa massa de ar de origem antártica que derrubou as temperaturas e trará marcas geladas em níveis extremos. O ar gelado começou a avançar no sábado e deve manter o frio muito […]",
-          "url": "https://metsul.com/patagonia-tera-maior-frio-do-ano-com-20oc-chega-no-brasil/",
-          "author": 861
-        }
-      ]
+      "metsul_articles": []
     }
   ],
   "sources": {
     "metsul": {
       "status": "ok",
       "kind": "Análisis humanos",
-      "fetched_at": "2026-07-21T11:22:24-03:00",
+      "fetched_at": "2026-07-21T13:41:51-03:00",
       "page_url": "https://metsul.com/categoria/uruguai/",
       "api_url": "https://metsul.com/wp-json/wp/v2/posts?categories=23&per_page=12&_fields=id%2Cdate%2Cmodified%2Clink%2Ctitle%2Cexcerpt%2Ccontent%2Cauthor",
       "articles": [
+        {
+          "id": 267743,
+          "published_at": "2026-07-21T12:07:20",
+          "modified_at": "2026-07-21T12:07:20",
+          "title": "Chuva volumosa no Rio Grande do Sul: veja as últimas projeções",
+          "excerpt": "Muita chuva é esperada ainda no Rio Grande do Sul até amanhã com a transformação da frente semi-estacionária em uma frente fria e a atuação de um centro de baixa pressão atmosférica na costa gaúcha. De acordo com a análise da MetSul Meteorologia, os maiores volumes de chuva vão se concentrar na tarde e noite […]",
+          "url": "https://metsul.com/chuva-volumosa-no-rio-grande-do-sul-veja-as-ultimas-projecoes/",
+          "author": 861
+        },
         {
           "id": 267731,
           "published_at": "2026-07-21T09:12:57",
@@ -954,23 +953,14 @@
           "excerpt": "A primeira metade do domingo teve chuva acima de 100 mm e rajadas de vento perto de 100 km/h no Rio Grande do Sul em quadro de forte instabilidade que se intensifica no estado neste começo de semana. O vento muito forte na primeira metade deste domingo teve duas causas distintas. No Oeste e no […]",
           "url": "https://metsul.com/comeco-do-domingo-teve-chuva-de-100-mm-e-vento-de-quase-100-km-h/",
           "author": 861
-        },
-        {
-          "id": 267670,
-          "published_at": "2026-07-19T12:29:44",
-          "modified_at": "2026-07-19T12:03:38",
-          "title": "Patagônia terá maior frio do ano com -20ºC; chega no Brasil?",
-          "excerpt": "A Patagônia argentina ingressa neste fim de semana na mais intensa onda de frio de 2026 na região com a chegada de uma poderosa massa de ar de origem antártica que derrubou as temperaturas e trará marcas geladas em níveis extremos. O ar gelado começou a avançar no sábado e deve manter o frio muito […]",
-          "url": "https://metsul.com/patagonia-tera-maior-frio-do-ano-com-20oc-chega-no-brasil/",
-          "author": 861
         }
       ]
     },
     "inumet": {
       "status": "ok",
       "kind": "Fuente oficial",
-      "fetched_at": "2026-07-21T11:22:24-03:00",
-      "updated_at": "2026-07-21T11:13:00-03:00",
+      "fetched_at": "2026-07-21T13:41:51-03:00",
+      "updated_at": "2026-07-21T12:00:00-03:00",
       "forecast_url": "https://www.inumet.gub.uy/tiempo/pronostico",
       "forecast": [
         {
@@ -999,7 +989,7 @@
           "periods": [
             {
               "period": "Mañana",
-              "description": "Nuboso y cubierto.",
+              "description": "Nuboso y cubierto. Probables precipitaciones.",
               "wind": "SE 20 -30 km/h, rachas de hasta 50 km/h."
             },
             {
@@ -1037,7 +1027,7 @@
     "models": {
       "status": "ok",
       "kind": "Modelos numéricos",
-      "fetched_at": "2026-07-21T11:22:24-03:00",
+      "fetched_at": "2026-07-21T13:41:51-03:00",
       "provider": "Open-Meteo",
       "provider_url": "https://open-meteo.com/",
       "models": [

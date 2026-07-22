@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-22T17:31:24-03:00",
+  "generated_at": "2026-07-22T19:16:06-03:00",
   "timezone": "America/Montevideo",
   "weekends": [
     {
@@ -860,7 +860,7 @@
     "metsul": {
       "status": "ok",
       "kind": "Análisis humanos",
-      "fetched_at": "2026-07-22T17:31:24-03:00",
+      "fetched_at": "2026-07-22T19:16:06-03:00",
       "page_url": "https://metsul.com/categoria/uruguai/",
       "api_url": "https://metsul.com/wp-json/wp/v2/posts?categories=23&per_page=12&_fields=id%2Cdate%2Cmodified%2Clink%2Ctitle%2Cexcerpt%2Ccontent%2Cauthor",
       "articles": [
@@ -959,8 +959,8 @@
     "inumet": {
       "status": "ok",
       "kind": "Fuente oficial",
-      "fetched_at": "2026-07-22T17:31:24-03:00",
-      "updated_at": "2026-07-22T16:30:00-03:00",
+      "fetched_at": "2026-07-22T19:16:06-03:00",
+      "updated_at": "2026-07-22T18:00:00-03:00",
       "forecast_url": "https://www.inumet.gub.uy/tiempo/pronostico",
       "forecast": [
         {
@@ -976,8 +976,8 @@
             },
             {
               "period": "Tarde/Noche",
-              "description": "Nuboso y cubierto, períodos de algo nuboso.",
-              "wind": "SE 10 -30 km/h, rachas de hasta 40 km/h."
+              "description": "Nuboso y cubierto, períodos de algo nuboso. Neblinas.",
+              "wind": "SE 10-30 km/h, rachas de hasta 40 km/h."
             }
           ]
         },
@@ -1027,7 +1027,7 @@
     "models": {
       "status": "ok",
       "kind": "Modelos numéricos",
-      "fetched_at": "2026-07-22T17:31:24-03:00",
+      "fetched_at": "2026-07-22T19:16:06-03:00",
       "provider": "Open-Meteo",
       "provider_url": "https://open-meteo.com/",
       "models": [

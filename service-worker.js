@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'jona-offline-';
-const CACHE_NAME = `${CACHE_PREFIX}v4`;
+const CACHE_NAME = `${CACHE_PREFIX}v5`;
 const SCOPE_URL = new URL(self.registration.scope);
 const NAVIGATION_TIMEOUT_MS = 3500;
 
@@ -14,6 +14,8 @@ const CORE_PATHS = [
   './assets/site-bg-1600.webp',
   './assets/weather-bg-1600.webp',
   './social-preview-jona-1200x630.jpg',
+  './clima.png',
+  './movildiad.png',
   './favicon.svg?v=3',
   './favicon-32x32.png',
   './favicon-16x16.png',

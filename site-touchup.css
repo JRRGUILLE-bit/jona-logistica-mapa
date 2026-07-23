@@ -106,7 +106,7 @@ body{
 .schedule-stop,
 .article-link,
 .download-card{
-  will-change:transform;
+  will-change:auto;
 }
 
 .action:hover,
@@ -308,4 +308,31 @@ body{
   .tool-icon,
   .app-icon,
   .platform-icon{transition:none}
+}
+
+
+/* Performance pass 2026-07-23 */
+.section,.group,.day,.weekend,.metsul-panel{
+  content-visibility:auto;
+  contain-intrinsic-size:auto 520px;
+}
+.action,.link-card,.tool-card,.quick-card,.place-card,.car-card,.day-card,.weekend-link,.day-link,.schedule-stop,.article-link,.download-card{
+  will-change:auto!important;
+}
+img{
+  max-width:100%;
+}
+@media(max-width:760px){
+  .action,.link-card,.tool-card,.app-panel,.quick-card,.place-card,.car-card,.day-card,.source-card,.metric,.block,.article-link,.weekend-link,.day-link,.schedule-stop,.panel,.metsul-panel,.store-button,.status,.risk,.kind,.mode,.file-type,.route,.tab{
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+  .action-icon:after,.link-icon:after,.tool-icon:after,.app-icon:after,.platform-icon:after{
+    filter:none!important;
+  }
+}
+@media(hover:none){
+  .action,.link-card,.quick-card,.weekend-link,.day-link,.schedule-stop,.article-link,.download-card,.store-button,.btn{
+    transition-duration:.08s!important;
+  }
 }

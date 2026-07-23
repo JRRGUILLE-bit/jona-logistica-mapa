@@ -7,6 +7,7 @@ on:
     paths:
       - "scripts/update_weather.py"
       - "scripts/update_weather_plan.py"
+      - "scripts/translate_metsul.py"
       - ".github/workflows/update-weather.yml"
   schedule:
     - cron: "17 * * * *"
@@ -25,7 +26,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -40,15 +41,31 @@ jobs:
       - name: Collect weather sources
         run: python scripts/update_weather_plan.py
 
+      - name: Restore Argos translation cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/argos-translate
+            ~/.local/share/argos-translate
+          key: argos-translate-${{ runner.os }}-py312-pt-es-v1
+
+      - name: Install translation engine
+        continue-on-error: true
+        run: python -m pip install --disable-pip-version-check --quiet argostranslate==1.11.0
+
+      - name: Translate MetSul news
+        run: python scripts/translate_metsul.py
+
       - name: Save updated data
         run: |
-          if git diff --quiet -- data/weather.json; then
-            echo "No weather changes to save."
+          if [ -z "$(git status --porcelain -- data/weather.json data/metsul-translations.json)" ]; then
+            echo "No weather or translation changes to save."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/weather.json
+          git add data/weather.json data/metsul-translations.json
           git commit -m "Update weather data"
           git pull --rebase origin main
           git push origin HEAD:main

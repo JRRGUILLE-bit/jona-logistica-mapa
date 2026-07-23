@@ -128,3 +128,13 @@ body:after{
   .action-title{font-size:24px}.action-description{font-size:11px;margin-top:6px}.arrow{right:18px}.producer{flex-wrap:wrap;padding:0 12px}
 }
 @media(prefers-reduced-motion:reduce){.hero{animation:none}.action,.action:after,.arrow,.instagram-link{transition:none}}
+
+/* Portada sin panel envolvente */
+.shell > .hero{
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+.shell > .hero:before{
+  content:none!important;
+  display:none!important;
+}

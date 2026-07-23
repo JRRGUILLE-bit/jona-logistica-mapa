@@ -1,0 +1,71 @@
+name: Finalize operational metadata
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/finalize-operational-metadata.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Finalize metadata and Apps separation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          touch = Path('site-touchup.css')
+          css = touch.read_text(encoding='utf-8')
+          block = '''
+
+/* Estado editorial de la información operativa */
+.page-meta{display:flex;align-items:center;justify-content:center;gap:9px;margin:22px 4px 0;color:rgba(245,240,232,.58);font-size:10px;font-weight:600;letter-spacing:.055em;line-height:1.45;text-align:center;text-transform:uppercase}
+.page-meta:before{content:"";width:7px;height:7px;flex:0 0 auto;border-radius:50%;background:var(--accent,#dc9140);box-shadow:0 0 0 4px rgba(220,145,64,.09)}
+.action:nth-child(6){--card-accent:#7889ea}
+@media(max-width:760px){.page-meta{align-items:flex-start;font-size:9px}.page-meta:before{margin-top:3px}}
+'''
+          if '/* Estado editorial de la información operativa */' not in css:
+              touch.write_text(css.rstrip() + block + '\n', encoding='utf-8')
+
+          updates = [
+            ('apps/index.html', '  <footer class="site-footer">', '  <p class="page-meta"><span>Actualizado 23/07/2026 · Responsable: Producción técnica</span></p>\n\n  <footer class="site-footer">'),
+            ('docs/index.html', '  <p class="note">', '  <p class="page-meta"><span>Actualizado 23/07/2026 · Responsable: Producción</span></p>\n\n  <p class="note">'),
+            ('movilidad/index.html', '</main>', '<p class="page-meta"><span>Actualizado 23/07/2026 · Responsable: Producción</span></p>\n</main>'),
+            ('supermercados/index.html', '<footer>Confirmar horarios antes de salir.</footer>', '<p class="page-meta"><span>Actualizado 23/07/2026 · Responsable: Producción</span></p>\n<footer>Confirmar horarios antes de salir.</footer>')
+          ]
+          for filename, needle, replacement in updates:
+              path = Path(filename)
+              html = path.read_text(encoding='utf-8')
+              if 'Actualizado 23/07/2026 · Responsable:' not in html:
+                  if needle not in html:
+                      raise SystemExit(f'No se encontró punto de inserción en {filename}')
+                  html = html.replace(needle, replacement, 1)
+              html = html.replace('site-touchup.css?v=20260723-1', 'site-touchup.css?v=20260723-2')
+              path.write_text(html, encoding='utf-8')
+
+          apps = Path('apps/index.html')
+          html = apps.read_text(encoding='utf-8')
+          html = re.sub(r'\s*<article class="tool-card communication">.*?</article>', '', html, count=1, flags=re.S)
+          apps.write_text(html, encoding='utf-8')
+          PY
+      - name: Commit final metadata
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site-touchup.css apps/index.html docs/index.html movilidad/index.html supermercados/index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Add update ownership and separate Discord from Apps"
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 3
+          done
+          exit 1

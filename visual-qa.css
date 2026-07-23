@@ -1,0 +1,65 @@
+/* Pasada de QA gráfico · 2026-07-23 */
+
+/* Mantiene el brillo decorativo dentro del encabezado que le corresponde. */
+.page > .hero{
+  position:relative;
+}
+
+/* Desplazamiento horizontal más controlado en tablas extensas de Clima. */
+.model-table{
+  overscroll-behavior-inline:contain;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* Evita que el grupo y la etiqueta de recorrido compitan en teléfonos angostos. */
+@media(max-width:520px){
+  .car-top{
+    display:block!important;
+  }
+  .route{
+    display:inline-flex;
+    max-width:100%!important;
+    margin-top:10px;
+    text-align:left!important;
+    white-space:normal!important;
+  }
+}
+
+/* Los controles de la portada dejan de comprimirse en pantallas muy estrechas. */
+@media(max-width:360px){
+  .site-tools{
+    grid-template-columns:1fr!important;
+  }
+  .site-tool-note{
+    grid-column:1!important;
+  }
+  .next-shoot-actions{
+    display:grid!important;
+    grid-template-columns:1fr;
+  }
+  .next-shoot-actions a{
+    width:100%;
+  }
+}
+
+/* En dispositivos táctiles no se conserva un estado hover desplazado. */
+@media(hover:none){
+  .action:hover,
+  .link-card:hover,
+  .quick-card:hover,
+  .weekend-link:hover,
+  .day-link:hover,
+  .schedule-stop:hover,
+  .article-link:hover,
+  .download-card:hover,
+  .store-button:hover,
+  .btn:hover{
+    transform:none!important;
+  }
+  .action:hover .action-icon,
+  .link-card:hover .link-icon,
+  .tool-card:hover .tool-icon,
+  .download-card:hover .platform-icon{
+    transform:none!important;
+  }
+}

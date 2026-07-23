@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'jona-offline-';
-const CACHE_NAME = `${CACHE_PREFIX}v1`;
+const CACHE_NAME = `${CACHE_PREFIX}v2`;
 const SCOPE_URL = new URL(self.registration.scope);
 
 const CORE_PATHS = [
@@ -78,13 +78,7 @@ self.addEventListener('activate', event => {
 function cleanRequest(request) {
   const url = new URL(request.url);
   url.search = '';
-  return new Request(url.href, {
-    method: 'GET',
-    headers: request.headers,
-    mode: request.mode,
-    credentials: request.credentials,
-    redirect: request.redirect
-  });
+  return new Request(url.href, { credentials: 'same-origin' });
 }
 
 async function networkFirstNavigation(request) {
@@ -104,7 +98,9 @@ async function networkFirstNavigation(request) {
     if (!cached && url.pathname.endsWith('/')) {
       cached = await cache.match(new URL('index.html', url).href, { ignoreSearch: true });
     }
-    return cached || cache.match(HOME_URL) || Response.error();
+    if (cached) return cached;
+    const home = await cache.match(HOME_URL, { ignoreSearch: true });
+    return home || Response.error();
   }
 }
 

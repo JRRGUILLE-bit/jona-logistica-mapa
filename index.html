@@ -9,10 +9,10 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
-<meta name="description" content="Centro de producción de Jona tenía 15 años: clima, movilidad, compras y documentos de rodaje.">
+<meta name="description" content="Centro de producción de Jona tenía 15 años: clima, movilidad, compras, documentos y aplicaciones de rodaje.">
 <link rel="canonical" href="https://jrrguille-bit.github.io/jona-logistica-mapa/">
 <meta property="og:title" content="Jona tenía 15 años — Centro de producción">
-<meta property="og:description" content="Clima, movilidad, compras y documentos para el rodaje de Jona tenía 15 años.">
+<meta property="og:description" content="Clima, movilidad, compras, documentos y aplicaciones para el rodaje de Jona tenía 15 años.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jrrguille-bit.github.io/jona-logistica-mapa/">
 <title>Jona tenía 15 años — Centro de producción</title>
@@ -29,7 +29,6 @@
   --accent-soft:rgba(220,145,64,.16);
   --line:rgba(220,145,64,.48);
   --hair:rgba(255,255,255,.11);
-  --panel:rgba(4,18,26,.76);
   --focus:#ffd18f;
   --shadow:0 26px 70px rgba(0,0,0,.34);
 }
@@ -68,16 +67,16 @@ body:after{
 .shell{
   position:relative;
   z-index:1;
-  width:min(100%,1180px);
+  width:min(100%,1220px);
   min-height:100svh;
   margin:0 auto;
-  padding:max(46px,env(safe-area-inset-top)) clamp(18px,5vw,66px) max(26px,env(safe-area-inset-bottom));
+  padding:max(46px,env(safe-area-inset-top)) clamp(18px,4vw,56px) max(26px,env(safe-area-inset-bottom));
   display:grid;
   align-items:start;
   justify-items:center;
 }
 .hero{
-  width:min(100%,940px);
+  width:min(100%,1080px);
   text-align:center;
   animation:arrive .7s cubic-bezier(.2,.8,.2,1) both;
 }
@@ -135,18 +134,18 @@ body:after{
   width:100%;
   margin:28px auto 0;
   display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(285px,1fr));
   gap:14px;
 }
 .action{
   position:relative;
   min-width:0;
-  min-height:142px;
-  padding:22px 58px 22px 22px;
+  min-height:132px;
+  padding:20px 50px 20px 18px;
   display:grid;
-  grid-template-columns:64px minmax(0,1fr);
+  grid-template-columns:58px minmax(0,1fr);
   align-items:center;
-  gap:18px;
+  gap:15px;
   overflow:hidden;
   border:1px solid var(--hair);
   border-radius:16px;
@@ -188,23 +187,23 @@ body:after{
 .action:hover:after{transform:scale(1.14);opacity:1}
 .action:focus-visible{outline:3px solid var(--focus);outline-offset:5px}
 .action-icon{
-  width:62px;
-  height:62px;
+  width:58px;
+  height:58px;
   display:grid;
   place-items:center;
   border:1px solid rgba(220,145,64,.38);
-  border-radius:15px;
+  border-radius:14px;
   background:linear-gradient(145deg,rgba(220,145,64,.12),rgba(4,17,24,.45));
   color:var(--accent-strong);
   box-shadow:inset 0 1px rgba(255,255,255,.04);
 }
-.action-icon svg{width:34px;height:34px;stroke:currentColor}
+.action-icon svg{width:32px;height:32px;stroke:currentColor}
 .action-copy{min-width:0;position:relative;z-index:1}
 .action-kicker{
   display:block;
   margin-bottom:6px;
   color:var(--accent);
-  font-size:10px;
+  font-size:9px;
   font-weight:700;
   letter-spacing:.15em;
   text-transform:uppercase;
@@ -212,7 +211,7 @@ body:after{
 .action-title{
   display:block;
   font-family:Oswald,Impact,sans-serif;
-  font-size:clamp(25px,3vw,32px);
+  font-size:clamp(24px,2.5vw,30px);
   font-weight:500;
   line-height:1.05;
   letter-spacing:.045em;
@@ -220,18 +219,18 @@ body:after{
 }
 .action-description{
   display:block;
-  margin-top:8px;
+  margin-top:7px;
   color:var(--muted);
-  font-size:12px;
+  font-size:11px;
   line-height:1.45;
 }
 .arrow{
   position:absolute;
   z-index:2;
-  right:24px;
+  right:20px;
   top:50%;
-  width:13px;
-  height:13px;
+  width:12px;
+  height:12px;
   border-top:2px solid var(--accent);
   border-right:2px solid var(--accent);
   transform:translateY(-50%) rotate(45deg);
@@ -372,6 +371,23 @@ body:after{
           <span class="action-kicker">Documentación</span>
           <span class="action-title">Links</span>
           <span class="action-description">Guion, planes, equipos y citaciones.</span>
+        </span>
+        <span class="arrow" aria-hidden="true"></span>
+      </a>
+
+      <a class="action" href="apps/">
+        <span class="action-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="10" width="18" height="18" rx="3"></rect>
+            <rect x="36" y="10" width="18" height="18" rx="3"></rect>
+            <rect x="10" y="36" width="18" height="18" rx="3"></rect>
+            <path d="M45 36v18M36 45h18"></path>
+          </svg>
+        </span>
+        <span class="action-copy">
+          <span class="action-kicker">Herramientas</span>
+          <span class="action-title">Apps</span>
+          <span class="action-description">Descargas y aplicaciones útiles para el rodaje.</span>
         </span>
         <span class="arrow" aria-hidden="true"></span>
       </a>

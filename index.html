@@ -9,18 +9,18 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
-<meta name="description" content="Centro de producción de Jona tenía 15 años: clima, movilidad, compras, documentos y aplicaciones de rodaje.">
+<meta name="description" content="Centro de producción de Jona tenía 15 años: clima, movilidad, compras, documentos, Discord y aplicaciones de rodaje.">
 <link rel="canonical" href="https://jrrguille-bit.github.io/jona-logistica/">
 <meta property="og:title" content="Jona tenía 15 años — Centro de producción">
-<meta property="og:description" content="Clima, movilidad, compras, documentos y aplicaciones para el rodaje de Jona tenía 15 años.">
+<meta property="og:description" content="Clima, movilidad, compras, documentos, Discord y aplicaciones para el rodaje de Jona tenía 15 años.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jrrguille-bit.github.io/jona-logistica/">
 <title>Jona tenía 15 años — Centro de producción</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="home.css?v=20260723-2">
-<link rel="stylesheet" href="site-touchup.css?v=20260723-1">
+<link rel="stylesheet" href="home.css?v=20260723-3">
+<link rel="stylesheet" href="site-touchup.css?v=20260723-2">
 <link rel="preload" as="image" href="assets/site-bg-1600.webp" fetchpriority="high">
 </head>
 <body>
@@ -31,6 +31,20 @@
       <span class="brand-main">Jona tenía</span>
       <span class="brand-emphasis">15 años</span>
     </h1>
+
+    <section class="next-shoot" aria-labelledby="next-shoot-title">
+      <div class="next-shoot-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="5" y="7" width="22" height="20" rx="3"></rect><path d="M10 4v6M22 4v6M5 13h22"></path><path d="M11 19h4M18 19h3M11 24h3"></path></svg></div>
+      <div class="next-shoot-copy">
+        <span class="next-shoot-kicker">Próxima jornada</span>
+        <strong id="nextShootTitle">Cargando…</strong>
+        <span id="nextShootDetail">Consultando el calendario de rodaje.</span>
+      </div>
+      <div class="next-shoot-actions">
+        <a id="nextShootPrimary" href="docs/">Ver jornada</a>
+        <a href="clima/">Ver clima</a>
+      </div>
+    </section>
+    <p class="page-meta"><span>Actualizado 23/07/2026 · Responsable: Producción</span></p>
 
     <nav class="actions" aria-label="Secciones de producción">
       <a class="action" href="clima/">
@@ -72,6 +86,14 @@
         <span class="action-copy"><span class="action-kicker">Herramientas</span><span class="action-title">Apps</span><span class="action-description">Descargas y aplicaciones útiles para el rodaje.</span></span>
         <span class="arrow" aria-hidden="true"></span>
       </a>
+
+      <a class="action" href="discord/">
+        <span class="action-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><path d="M16 17c10-6 22-6 32 0l6 30c-8 6-14 8-18 8l-4-6-4 6c-4 0-10-2-18-8z"></path><circle cx="25" cy="35" r="3"></circle><circle cx="39" cy="35" r="3"></circle><path d="M23 43c6 4 12 4 18 0"></path></svg>
+        </span>
+        <span class="action-copy"><span class="action-kicker">Comunicación</span><span class="action-title">Discord</span><span class="action-description">Acceso al servidor y descarga de la aplicación.</span></span>
+        <span class="arrow" aria-hidden="true"></span>
+      </a>
     </nav>
 
     <footer class="footer">
@@ -85,5 +107,24 @@
     </footer>
   </section>
 </main>
+<script>
+(()=>{
+  const jornadas=[
+    {date:'2026-07-25',title:'Sábado 25 de julio',detail:'07:00 · Taller · Ciudad de la Costa',href:'movilidad/#dia-1',label:'Ver movilidad'},
+    {date:'2026-07-26',title:'Domingo 26 de julio',detail:'13:00 · Plaza La Paz',href:'movilidad/#dia-2',label:'Ver movilidad'},
+    {date:'2026-08-01',title:'Sábado 1 de agosto',detail:'Consultar citaciones y plan de rodaje',href:'docs/',label:'Ver Docs'},
+    {date:'2026-08-02',title:'Domingo 2 de agosto',detail:'Consultar citaciones y plan de rodaje',href:'docs/',label:'Ver Docs'}
+  ];
+  const now=new Date();
+  const today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+  const next=jornadas.find(item=>item.date>=today);
+  const title=document.getElementById('nextShootTitle');
+  const detail=document.getElementById('nextShootDetail');
+  const primary=document.getElementById('nextShootPrimary');
+  if(!title||!detail||!primary)return;
+  if(next){title.textContent=next.title;detail.textContent=next.detail;primary.href=next.href;primary.textContent=next.label;}
+  else{title.textContent='Rodaje finalizado';detail.textContent='Las jornadas previstas ya concluyeron.';primary.href='docs/';primary.textContent='Ver Docs';}
+})();
+</script>
 </body>
 </html>

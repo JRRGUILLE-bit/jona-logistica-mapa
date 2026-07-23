@@ -71,9 +71,10 @@ body:after{
   width:min(100%,1180px);
   min-height:100svh;
   margin:0 auto;
-  padding:max(28px,env(safe-area-inset-top)) clamp(18px,5vw,66px) max(26px,env(safe-area-inset-bottom));
+  padding:max(46px,env(safe-area-inset-top)) clamp(18px,5vw,66px) max(26px,env(safe-area-inset-bottom));
   display:grid;
-  place-items:center;
+  align-items:start;
+  justify-items:center;
 }
 .hero{
   width:min(100%,940px);
@@ -280,8 +281,8 @@ body:after{
 @keyframes arrive{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:760px){
   body:before{background-position:center center;filter:contrast(1.1) brightness(.66) saturate(.75)}
-  .shell{padding-left:15px;padding-right:15px;align-items:start}
-  .hero{padding-top:13px}
+  .shell{padding:max(18px,env(safe-area-inset-top)) 15px max(26px,env(safe-area-inset-bottom));align-items:start}
+  .hero{padding-top:0}
   .eyebrow{margin-bottom:14px;letter-spacing:.18em}
   .brand-main{font-size:clamp(35px,10.4vw,50px);letter-spacing:.09em;padding-left:.09em}
   .brand-emphasis{font-size:clamp(44px,13vw,64px)}

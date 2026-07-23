@@ -1,0 +1,192 @@
+name: Optimize site performance
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/optimize-site-performance.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v4
+
+      - name: Install image tooling
+        run: python -m pip install --disable-pip-version-check pillow
+
+      - name: Optimize media and first paint
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          from PIL import Image, ImageOps
+
+          ROOT = Path('.')
+          ASSETS = ROOT / 'assets'
+          AVATARS = ASSETS / 'avatars'
+          ASSETS.mkdir(exist_ok=True)
+          AVATARS.mkdir(parents=True, exist_ok=True)
+
+          def optimize_image(source, destination, max_size, quality):
+              source = Path(source)
+              destination = Path(destination)
+              if not source.exists():
+                  return False
+              destination.parent.mkdir(parents=True, exist_ok=True)
+              with Image.open(source) as image:
+                  image = ImageOps.exif_transpose(image)
+                  if image.mode not in ('RGB', 'RGBA'):
+                      image = image.convert('RGBA' if 'A' in image.getbands() else 'RGB')
+                  image.thumbnail((max_size, max_size), Image.Resampling.LANCZOS)
+                  image.save(destination, 'WEBP', quality=quality, method=6)
+              return True
+
+          # Fondos oscuros: 1600 px es suficiente porque se muestran con filtros y overlays.
+          backgrounds = [
+              ('b16f4d42-4937-42be-839e-e54647e64100.png', 'assets/site-bg-1600.webp', 1600, 72),
+              ('921600d1-4054-4c42-b1e4-5f1d0202a7be.png', 'assets/shops-bg-1600.webp', 1600, 72),
+              ('download.jpeg', 'assets/weather-bg-1600.webp', 1600, 72),
+          ]
+          for source, destination, size, quality in backgrounds:
+              optimize_image(source, destination, size, quality)
+
+          def add_preload(html, href):
+              tag = f'<link rel="preload" as="image" href="{href}" fetchpriority="high">'
+              if tag not in html:
+                  html = html.replace('</head>', tag + '\n</head>')
+              return html
+
+          replacements = {
+              'index.html': [
+                  ('b16f4d42-4937-42be-839e-e54647e64100.png', 'assets/site-bg-1600.webp'),
+              ],
+              'apps/index.html': [
+                  ('../b16f4d42-4937-42be-839e-e54647e64100.png', '../assets/site-bg-1600.webp'),
+              ],
+              'links/index.html': [
+                  ('../b16f4d42-4937-42be-839e-e54647e64100.png', '../assets/site-bg-1600.webp'),
+              ],
+              'clima/index.html': [
+                  ('../download.jpeg', '../assets/weather-bg-1600.webp'),
+              ],
+              'supermercados/index.html': [
+                  ('../921600d1-4054-4c42-b1e4-5f1d0202a7be.png', '../assets/shops-bg-1600.webp'),
+              ],
+          }
+          preloads = {
+              'index.html': 'assets/site-bg-1600.webp',
+              'apps/index.html': '../assets/site-bg-1600.webp',
+              'links/index.html': '../assets/site-bg-1600.webp',
+              'clima/index.html': '../assets/weather-bg-1600.webp',
+              'supermercados/index.html': '../assets/shops-bg-1600.webp',
+              'movilidad/index.html': '../jona-movilidad-fondo-poster.webp',
+          }
+
+          for path_string, pairs in replacements.items():
+              path = Path(path_string)
+              html = path.read_text(encoding='utf-8')
+              for old, new in pairs:
+                  html = html.replace(old, new)
+              html = add_preload(html, preloads[path_string])
+              path.write_text(html, encoding='utf-8')
+
+          # Avatares de movilidad: reemplaza PNG grandes por WebP pequeños.
+          mobility_path = Path('movilidad/index.html')
+          mobility = mobility_path.read_text(encoding='utf-8')
+          avatar_pattern = re.compile(r'<img\s+src="\.\./([^\"]+\.(?:png|jpg|jpeg))"\s+alt="">', re.I)
+          seen = {}
+          visible_count = 0
+
+          def avatar_replacement(match):
+              nonlocal_state = None
+              global visible_count
+              relative_source = match.group(1)
+              source = ROOT / relative_source
+              if not source.exists():
+                  return match.group(0)
+              destination = AVATARS / (source.stem + '.webp')
+              if relative_source not in seen:
+                  optimize_image(source, destination, 192, 76)
+                  seen[relative_source] = destination
+              priority = 'loading="eager" fetchpriority="high"' if visible_count < 4 else 'loading="lazy" fetchpriority="low"'
+              visible_count += 1
+              return f'<img src="../{destination.as_posix()}" alt="" width="54" height="54" {priority} decoding="async">'
+
+          mobility = avatar_pattern.sub(avatar_replacement, mobility)
+          mobility = mobility.replace('preload="metadata"', 'preload="none"')
+          mobility = re.sub(r'<source\s+src="([^\"]+)"\s+type="([^\"]+)">', r'<source data-src="\1" type="\2">', mobility)
+          mobility = add_preload(mobility, preloads['movilidad/index.html'])
+
+          idle_loader = '''
+          <script id="deferred-background-video">
+          (()=>{
+            const video=document.querySelector('.video-bg');
+            if(!video)return;
+            const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const saveData=navigator.connection&&navigator.connection.saveData;
+            if(reduceMotion||saveData)return;
+            const loadVideo=()=>{
+              video.querySelectorAll('source[data-src]').forEach(source=>{source.src=source.dataset.src;});
+              video.load();
+              video.play().catch(()=>{});
+            };
+            if('requestIdleCallback' in window){requestIdleCallback(loadVideo,{timeout:1800});}
+            else{setTimeout(loadVideo,900);}
+          })();
+          </script>
+          '''
+          if 'id="deferred-background-video"' not in mobility:
+              mobility = mobility.replace('</body>', idle_loader + '\n</body>')
+          mobility_path.write_text(mobility, encoding='utf-8')
+
+          # CSS compartido: menos capas GPU permanentes y render diferido fuera de pantalla.
+          css_path = Path('site-touchup.css')
+          css = css_path.read_text(encoding='utf-8')
+          css = css.replace('will-change:transform;', 'will-change:auto;')
+          marker = '/* Performance pass 2026-07-23 */'
+          performance_css = r'''
+
+          /* Performance pass 2026-07-23 */
+          .section,.group,.day,.weekend,.metsul-panel{
+            content-visibility:auto;
+            contain-intrinsic-size:auto 520px;
+          }
+          .action,.link-card,.tool-card,.quick-card,.place-card,.car-card,.day-card,.weekend-link,.day-link,.schedule-stop,.article-link,.download-card{
+            will-change:auto!important;
+          }
+          img{
+            max-width:100%;
+          }
+          @media(max-width:760px){
+            .action,.link-card,.tool-card,.app-panel,.quick-card,.place-card,.car-card,.day-card,.source-card,.metric,.block,.article-link,.weekend-link,.day-link,.schedule-stop,.panel,.metsul-panel,.store-button,.status,.risk,.kind,.mode,.file-type,.route,.tab{
+              backdrop-filter:none!important;
+              -webkit-backdrop-filter:none!important;
+            }
+            .action-icon:after,.link-icon:after,.tool-icon:after,.app-icon:after,.platform-icon:after{
+              filter:none!important;
+            }
+          }
+          @media(hover:none){
+            .action,.link-card,.quick-card,.weekend-link,.day-link,.schedule-stop,.article-link,.download-card,.store-button,.btn{
+              transition-duration:.08s!important;
+            }
+          }
+          '''
+          if marker not in css:
+              css += performance_css
+          css_path.write_text(css, encoding='utf-8')
+          PY
+
+      - name: Commit optimized assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets site-touchup.css index.html apps/index.html links/index.html clima/index.html supermercados/index.html movilidad/index.html
+          git commit -m "Optimize site media and loading performance"
+          git push

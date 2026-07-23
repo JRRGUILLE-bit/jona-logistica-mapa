@@ -1,0 +1,269 @@
+name: Add operational homepage and Discord
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/add-operational-home-and-discord.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update production site
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          repo = Path('.')
+
+          # Shared metadata and sixth homepage color.
+          touch = repo / 'site-touchup.css'
+          css = touch.read_text(encoding='utf-8')
+          additions = '''
+
+/* Estado editorial de la información operativa */
+.page-meta{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  margin:22px 4px 0;
+  color:rgba(245,240,232,.58);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.055em;
+  line-height:1.45;
+  text-align:center;
+  text-transform:uppercase;
+}
+.page-meta:before{
+  content:"";
+  width:7px;
+  height:7px;
+  flex:0 0 auto;
+  border-radius:50%;
+  background:var(--accent,#dc9140);
+  box-shadow:0 0 0 4px rgba(220,145,64,.09);
+}
+.action:nth-child(6){--card-accent:#7889ea}
+@media(max-width:760px){.page-meta{align-items:flex-start;font-size:9px}.page-meta:before{margin-top:3px}}
+'''
+          if '/* Estado editorial de la información operativa */' not in css:
+              touch.write_text(css.rstrip() + additions + '\n', encoding='utf-8')
+
+          # Homepage: dynamic next-shoot strip, Discord section and cache bump.
+          path = repo / 'index.html'
+          html = path.read_text(encoding='utf-8')
+          html = html.replace('home.css?v=20260723-2', 'home.css?v=20260723-3')
+          html = html.replace('site-touchup.css?v=20260723-1', 'site-touchup.css?v=20260723-2')
+
+          next_block = '''
+
+    <section class="next-shoot" aria-labelledby="next-shoot-title">
+      <div class="next-shoot-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="5" y="7" width="22" height="20" rx="3"></rect><path d="M10 4v6M22 4v6M5 13h22"></path><path d="M11 19h4M18 19h3M11 24h3"></path></svg></div>
+      <div class="next-shoot-copy">
+        <span class="next-shoot-kicker">Próxima jornada</span>
+        <strong id="nextShootTitle">Cargando…</strong>
+        <span id="nextShootDetail">Consultando el calendario de rodaje.</span>
+      </div>
+      <div class="next-shoot-actions">
+        <a id="nextShootPrimary" href="docs/">Ver jornada</a>
+        <a href="clima/">Ver clima</a>
+      </div>
+    </section>
+    <p class="page-meta"><span>Actualizado 23/07/2026 · Responsable: Producción</span></p>
+'''
+          if 'class="next-shoot"' not in html:
+              html = html.replace('    </h1>\n\n    <nav class="actions"', '    </h1>' + next_block + '\n    <nav class="actions"', 1)
+
+          discord_card = '''
+
+      <a class="action" href="discord/">
+        <span class="action-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><path d="M16 17c10-6 22-6 32 0l6 30c-8 6-14 8-18 8l-4-6-4 6c-4 0-10-2-18-8z"></path><circle cx="25" cy="35" r="3"></circle><circle cx="39" cy="35" r="3"></circle><path d="M23 43c6 4 12 4 18 0"></path></svg>
+        </span>
+        <span class="action-copy"><span class="action-kicker">Comunicación</span><span class="action-title">Discord</span><span class="action-description">Acceso al servidor y descarga de la aplicación.</span></span>
+        <span class="arrow" aria-hidden="true"></span>
+      </a>
+'''
+          if 'href="discord/"' not in html:
+              html = html.replace('    </nav>', discord_card + '    </nav>', 1)
+
+          script = '''
+<script>
+(()=>{
+  const jornadas=[
+    {date:'2026-07-25',title:'Sábado 25 de julio',detail:'07:00 · Taller · Ciudad de la Costa',href:'movilidad/#dia-1',label:'Ver movilidad'},
+    {date:'2026-07-26',title:'Domingo 26 de julio',detail:'13:00 · Plaza La Paz',href:'movilidad/#dia-2',label:'Ver movilidad'},
+    {date:'2026-08-01',title:'Sábado 1 de agosto',detail:'Consultar citaciones y plan de rodaje',href:'docs/',label:'Ver Docs'},
+    {date:'2026-08-02',title:'Domingo 2 de agosto',detail:'Consultar citaciones y plan de rodaje',href:'docs/',label:'Ver Docs'}
+  ];
+  const now=new Date();
+  const today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+  const next=jornadas.find(item=>item.date>=today);
+  const title=document.getElementById('nextShootTitle');
+  const detail=document.getElementById('nextShootDetail');
+  const primary=document.getElementById('nextShootPrimary');
+  if(!title||!detail||!primary)return;
+  if(next){title.textContent=next.title;detail.textContent=next.detail;primary.href=next.href;primary.textContent=next.label;}
+  else{title.textContent='Rodaje finalizado';detail.textContent='Las jornadas previstas ya concluyeron.';primary.href='docs/';primary.textContent='Ver Docs';}
+})();
+</script>
+'''
+          if 'const jornadas=[' not in html:
+              html = html.replace('</body>', script + '</body>', 1)
+          path.write_text(html, encoding='utf-8')
+
+          # Homepage styles.
+          path = repo / 'home.css'
+          css = path.read_text(encoding='utf-8')
+          home_additions = '''
+
+/* Próxima jornada */
+.next-shoot{
+  width:100%;
+  margin:24px auto 0;
+  padding:15px 17px;
+  display:grid;
+  grid-template-columns:48px minmax(0,1fr) auto;
+  align-items:center;
+  gap:15px;
+  border:1px solid rgba(220,145,64,.34);
+  border-radius:15px;
+  background:linear-gradient(145deg,rgba(4,18,27,.90),rgba(8,29,39,.76));
+  box-shadow:0 16px 42px rgba(0,0,0,.25),inset 0 1px rgba(255,255,255,.035);
+  text-align:left;
+}
+.next-shoot-icon{width:46px;height:46px;display:grid;place-items:center;border:1px solid rgba(220,145,64,.42);border-radius:13px;background:rgba(220,145,64,.09);color:var(--accent-strong)}
+.next-shoot-icon svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.next-shoot-copy{min-width:0}
+.next-shoot-kicker{display:block;margin-bottom:4px;color:var(--accent);font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+.next-shoot-copy strong{display:block;font-family:Oswald,Impact,sans-serif;font-size:23px;font-weight:500;line-height:1.05;letter-spacing:.035em;text-transform:uppercase}
+.next-shoot-copy>span:last-child{display:block;margin-top:5px;color:var(--muted);font-size:11px;line-height:1.4}
+.next-shoot-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.next-shoot-actions a{min-height:36px;padding:9px 12px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(220,145,64,.40);border-radius:999px;background:rgba(2,15,24,.50);color:var(--ink);font-size:9px;font-weight:700;letter-spacing:.08em;text-decoration:none;text-transform:uppercase;transition:transform .17s ease,border-color .17s ease,background .17s ease}
+.next-shoot-actions a:hover{transform:translateY(-2px);border-color:var(--accent-strong);background:rgba(9,38,55,.90)}
+.hero>.page-meta{margin:12px 0 0}
+@media(max-width:760px){
+  .next-shoot{grid-template-columns:44px minmax(0,1fr);padding:14px;gap:12px}
+  .next-shoot-icon{width:42px;height:42px;border-radius:11px}
+  .next-shoot-copy strong{font-size:21px}
+  .next-shoot-actions{grid-column:1/-1;justify-content:stretch}
+  .next-shoot-actions a{flex:1 1 120px}
+}
+'''
+          if '/* Próxima jornada */' not in css:
+              path.write_text(css.rstrip() + home_additions + '\n', encoding='utf-8')
+
+          # Apps: move Discord out and add editorial metadata.
+          path = repo / 'apps/index.html'
+          html = path.read_text(encoding='utf-8')
+          html = re.sub(r'\s*<article class="tool-card communication">.*?</article>', '', html, count=1, flags=re.S)
+          if 'Actualizado 23/07/2026 · Responsable: Producción técnica' not in html:
+              html = html.replace('  <footer class="site-footer">', '  <p class="page-meta"><span>Actualizado 23/07/2026 · Responsable: Producción técnica</span></p>\n\n  <footer class="site-footer">', 1)
+          html = html.replace('site-touchup.css?v=20260723-1', 'site-touchup.css?v=20260723-2')
+          path.write_text(html, encoding='utf-8')
+
+          # Docs metadata.
+          path = repo / 'docs/index.html'
+          html = path.read_text(encoding='utf-8')
+          if 'Actualizado 23/07/2026 · Responsable: Producción' not in html:
+              html = html.replace('  <p class="note">', '  <p class="page-meta"><span>Actualizado 23/07/2026 · Responsable: Producción</span></p>\n\n  <p class="note">', 1)
+          html = html.replace('site-touchup.css?v=20260723-1', 'site-touchup.css?v=20260723-2')
+          path.write_text(html, encoding='utf-8')
+
+          # Mobility metadata.
+          path = repo / 'movilidad/index.html'
+          html = path.read_text(encoding='utf-8')
+          if 'Actualizado 23/07/2026 · Responsable: Producción' not in html:
+              html = html.replace('</main>', '<p class="page-meta"><span>Actualizado 23/07/2026 · Responsable: Producción</span></p>\n</main>', 1)
+          html = html.replace('site-touchup.css?v=20260723-1', 'site-touchup.css?v=20260723-2')
+          path.write_text(html, encoding='utf-8')
+
+          # Shopping metadata.
+          path = repo / 'supermercados/index.html'
+          html = path.read_text(encoding='utf-8')
+          if 'Actualizado 23/07/2026 · Responsable: Producción' not in html:
+              html = html.replace('<footer>Confirmar horarios antes de salir.</footer>', '<p class="page-meta"><span>Actualizado 23/07/2026 · Responsable: Producción</span></p>\n<footer>Confirmar horarios antes de salir.</footer>', 1)
+          html = html.replace('site-touchup.css?v=20260723-1', 'site-touchup.css?v=20260723-2')
+          path.write_text(html, encoding='utf-8')
+
+          # Discord standalone section with inactive invitation placeholder.
+          discord = repo / 'discord'
+          discord.mkdir(exist_ok=True)
+          (discord / 'index.html').write_text('''<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#061827">
+<link rel="icon" href="../favicon.svg?v=3" type="image/svg+xml" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<meta name="description" content="Acceso al Discord de producción de Jona tenía 15 años.">
+<link rel="canonical" href="https://jrrguille-bit.github.io/jona-logistica/discord/">
+<meta property="og:title" content="Discord — Jona Logística">
+<meta property="og:description" content="Acceso y descargas para la comunicación del equipo de producción.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jrrguille-bit.github.io/jona-logistica/discord/">
+<title>Discord — Jona Logística</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../site-touchup.css?v=20260723-2">
+<style>
+:root{color-scheme:dark;--bg:#061827;--ink:#f5f0e8;--muted:#aebbc4;--accent:#7889ea;--accent-strong:#9aa7ff;--line:rgba(120,137,234,.52);--hair:rgba(255,255,255,.11);--focus:#cbd2ff;--shadow:0 24px 68px rgba(0,0,0,.38)}
+*{box-sizing:border-box}html{min-height:100%;background:var(--bg)}body{margin:0;min-height:100vh;position:relative;isolation:isolate;overflow-x:hidden;color:var(--ink);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg)}
+body:before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:url("../assets/site-bg-1600.webp") center/cover no-repeat;filter:contrast(1.08) brightness(.52) saturate(.68);transform:scale(1.012)}
+body:after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 78% 12%,rgba(120,137,234,.16),transparent 32%),linear-gradient(180deg,rgba(2,13,21,.54),rgba(2,13,21,.94))}
+a{color:inherit}.page{position:relative;z-index:1;width:min(900px,100%);margin:0 auto;padding:94px 22px 48px}.home-link{position:fixed;z-index:20;top:20px;left:20px;display:inline-flex;align-items:center;min-height:44px;padding:10px 16px;border:1px solid var(--line);border-radius:999px;background:rgba(4,20,32,.88);text-decoration:none;font-family:Oswald,Impact,sans-serif;font-size:14px;letter-spacing:.07em;text-transform:uppercase;box-shadow:0 12px 30px rgba(0,0,0,.32)}
+.hero{position:relative;overflow:hidden;padding:clamp(30px,6vw,62px);border:1px solid var(--line);border-radius:20px;background:linear-gradient(135deg,rgba(4,19,31,.96),rgba(24,31,68,.78));box-shadow:var(--shadow)}.eyebrow{display:flex;align-items:center;gap:11px;margin:0 0 14px;color:var(--accent-strong);font-family:Oswald,Impact,sans-serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase}.eyebrow:before{content:"";width:30px;height:1px;background:currentColor}h1{margin:0;font-family:Oswald,Impact,sans-serif;font-size:clamp(58px,10vw,96px);font-weight:500;line-height:.92;letter-spacing:.035em;text-transform:uppercase}.intro{max-width:680px;margin:19px 0 0;color:var(--muted);font-size:14px;line-height:1.65}
+.panel{margin-top:20px;padding:24px;border:1px solid var(--hair);border-radius:18px;background:linear-gradient(145deg,rgba(5,23,35,.94),rgba(20,28,62,.80));box-shadow:var(--shadow)}.status{display:inline-flex;padding:7px 10px;border:1px solid rgba(232,173,81,.38);border-radius:999px;background:rgba(232,173,81,.09);color:#ffe0aa;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}.panel h2{margin:16px 0 0;font-family:Oswald,Impact,sans-serif;font-size:34px;font-weight:500;letter-spacing:.035em;text-transform:uppercase}.panel p{margin:9px 0 0;color:var(--muted);font-size:12px;line-height:1.55}.invite-button{width:100%;min-height:52px;margin-top:20px;border:1px solid rgba(120,137,234,.42);border-radius:12px;background:rgba(120,137,234,.12);color:rgba(245,240,232,.55);font-family:Oswald,Impact,sans-serif;font-size:16px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:not-allowed}.store-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}.store-button{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 15px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(2,15,24,.52);text-decoration:none;font-size:10px;font-weight:700;letter-spacing:.07em}.store-button:hover{border-color:var(--accent-strong)}
+.site-footer{margin:28px 4px 0;padding:20px 16px 0;border-top:1px solid var(--hair);color:rgba(245,240,232,.66);text-align:center}.copyright{margin:0;font-family:Oswald,Impact,sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase}.producer{margin:9px 0 0}.instagram-link{margin-left:7px}
+@media(max-width:760px){.page{padding:80px 15px 38px}.home-link{top:12px;left:12px}.hero{padding:30px 22px;border-radius:16px}.panel{padding:19px}.store-button{flex:1 1 130px}}
+</style>
+</head>
+<body>
+<a class="home-link" href="../" aria-label="Volver al inicio"><span class="home-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"></path><path d="M8 12h10"></path></svg></span><span>Inicio</span></a>
+<main class="page">
+  <header class="hero"><p class="eyebrow">Comunicación del equipo</p><h1>Discord</h1><p class="intro">El servidor centralizará avisos, canales por departamento y comunicación general durante la producción.</p></header>
+  <section class="panel" aria-labelledby="discord-access-title">
+    <span class="status">Servidor pendiente</span>
+    <h2 id="discord-access-title">Acceso al servidor</h2>
+    <p>Producción todavía no creó el servidor ni generó el enlace de invitación. El botón quedará activo cuando ese enlace esté disponible.</p>
+    <button class="invite-button" type="button" disabled aria-disabled="true">Invitación pendiente</button>
+    <div class="store-row">
+      <a class="store-button" href="https://apps.apple.com/uy/app/discord-conversa-y-juega/id985746746" target="_blank" rel="noopener noreferrer">Descargar para iOS</a>
+      <a class="store-button" href="https://play.google.com/store/apps/details?id=com.discord" target="_blank" rel="noopener noreferrer">Descargar para Android</a>
+    </div>
+  </section>
+  <p class="page-meta"><span>Actualizado 23/07/2026 · Responsable: Producción</span></p>
+  <footer class="site-footer"><p class="copyright">© 2026 Guillermo Barbeito · Todos los derechos reservados</p><p class="producer">Una producción de <strong>Mala Hierba Producciones</strong><a class="instagram-link" href="https://www.instagram.com/hierbamalafilms?igsh=MTh5YXJkYjIzYWty" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Mala Hierba Producciones"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg></a></p></footer>
+</main>
+</body>
+</html>
+''', encoding='utf-8')
+          PY
+
+      - name: Commit site update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html home.css site-touchup.css apps/index.html docs/index.html movilidad/index.html supermercados/index.html discord/index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Add next shoot summary and Discord section"
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 3
+          done
+          exit 1

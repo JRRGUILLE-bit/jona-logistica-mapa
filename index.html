@@ -9,13 +9,13 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
-<meta name="description" content="Centro de logística del rodaje de Jona: clima, movilidad, compras y documentos de producción.">
+<meta name="description" content="Centro de producción de Jona tenía 15 años: clima, movilidad, compras y documentos de rodaje.">
 <link rel="canonical" href="https://jrrguille-bit.github.io/jona-logistica-mapa/">
-<meta property="og:title" content="Jona Logística">
-<meta property="og:description" content="Clima, movilidad, compras y documentos para el rodaje de Jona.">
+<meta property="og:title" content="Jona tenía 15 años — Centro de producción">
+<meta property="og:description" content="Clima, movilidad, compras y documentos para el rodaje de Jona tenía 15 años.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jrrguille-bit.github.io/jona-logistica-mapa/">
-<title>Jona Logística</title>
+<title>Jona tenía 15 años — Centro de producción</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
@@ -62,8 +62,8 @@ body:after{
   z-index:0;
   pointer-events:none;
   background:
-    radial-gradient(circle at 50% 20%,rgba(27,92,119,.12),transparent 44%),
-    linear-gradient(180deg,rgba(3,13,19,.22),rgba(3,13,19,.68));
+    radial-gradient(circle at 50% 17%,rgba(27,92,119,.11),transparent 42%),
+    linear-gradient(180deg,rgba(3,13,19,.20),rgba(3,13,19,.68));
 }
 .shell{
   position:relative;
@@ -71,7 +71,7 @@ body:after{
   width:min(100%,1180px);
   min-height:100svh;
   margin:0 auto;
-  padding:max(34px,env(safe-area-inset-top)) clamp(18px,5vw,66px) max(28px,env(safe-area-inset-bottom));
+  padding:max(28px,env(safe-area-inset-top)) clamp(18px,5vw,66px) max(26px,env(safe-area-inset-bottom));
   display:grid;
   place-items:center;
 }
@@ -84,55 +84,55 @@ body:after{
   display:inline-flex;
   align-items:center;
   gap:10px;
-  margin:0 0 20px;
-  padding:8px 13px;
+  margin:0 0 15px;
+  padding:7px 12px;
   border:1px solid rgba(220,145,64,.34);
   border-radius:999px;
   background:rgba(4,18,26,.52);
   color:var(--accent-strong);
   font-family:Oswald,Impact,sans-serif;
-  font-size:12px;
+  font-size:11px;
   font-weight:500;
-  letter-spacing:.24em;
+  letter-spacing:.23em;
   text-transform:uppercase;
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
 }
-.eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px var(--accent-soft)}
+.eyebrow:before{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 0 5px var(--accent-soft);
+}
 .brand{
   margin:0;
   font-family:Oswald,Impact,"Arial Narrow",sans-serif;
   text-transform:uppercase;
   text-shadow:0 10px 38px rgba(0,0,0,.48);
 }
-.brand-jona{
+.brand-main{
   display:block;
-  font-size:clamp(66px,10vw,118px);
-  font-weight:500;
-  line-height:.82;
-  letter-spacing:.035em;
-}
-.brand-logistica{
-  display:block;
-  margin-top:.28em;
-  font-size:clamp(45px,7.8vw,88px);
+  font-size:clamp(44px,6.5vw,74px);
   font-weight:400;
-  line-height:1;
-  letter-spacing:.18em;
-  padding-left:.18em;
+  line-height:.95;
+  letter-spacing:.12em;
+  padding-left:.12em;
   color:#ebe7df;
 }
-.intro{
-  max-width:660px;
-  margin:24px auto 34px;
-  color:var(--muted);
-  font-size:clamp(13px,1.5vw,15px);
-  line-height:1.65;
-  text-shadow:0 3px 14px rgba(0,0,0,.6);
+.brand-emphasis{
+  display:block;
+  margin-top:.12em;
+  font-size:clamp(54px,7.8vw,88px);
+  font-weight:500;
+  line-height:.9;
+  letter-spacing:.045em;
+  color:var(--ink);
 }
 .actions{
   width:100%;
-  margin:0 auto;
+  margin:28px auto 0;
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:14px;
@@ -281,12 +281,11 @@ body:after{
 @media(max-width:760px){
   body:before{background-position:center center;filter:contrast(1.1) brightness(.66) saturate(.75)}
   .shell{padding-left:15px;padding-right:15px;align-items:start}
-  .hero{padding-top:18px}
-  .eyebrow{margin-bottom:18px;letter-spacing:.19em}
-  .brand-jona{font-size:clamp(58px,18vw,84px)}
-  .brand-logistica{font-size:clamp(39px,12.4vw,58px);letter-spacing:.12em;padding-left:.12em}
-  .intro{margin:20px auto 28px;padding:0 8px}
-  .actions{grid-template-columns:1fr;gap:11px}
+  .hero{padding-top:13px}
+  .eyebrow{margin-bottom:14px;letter-spacing:.18em}
+  .brand-main{font-size:clamp(35px,10.4vw,50px);letter-spacing:.09em;padding-left:.09em}
+  .brand-emphasis{font-size:clamp(44px,13vw,64px)}
+  .actions{grid-template-columns:1fr;gap:11px;margin-top:24px}
   .action{min-height:112px;padding:17px 47px 17px 15px;grid-template-columns:54px minmax(0,1fr);gap:14px;border-radius:13px}
   .action-icon{width:52px;height:52px;border-radius:12px}
   .action-icon svg{width:29px;height:29px}
@@ -303,12 +302,11 @@ body:after{
   <section class="hero" aria-labelledby="page-title">
     <p class="eyebrow">Centro de producción</p>
     <h1 class="brand" id="page-title">
-      <span class="brand-jona">Jona</span>
-      <span class="brand-logistica">Logística</span>
+      <span class="brand-main">Jona tenía</span>
+      <span class="brand-emphasis">15 años</span>
     </h1>
-    <p class="intro">La información operativa del rodaje, organizada en un solo lugar para acceder rápido desde el set.</p>
 
-    <nav class="actions" aria-label="Secciones de logística">
+    <nav class="actions" aria-label="Secciones de producción">
       <a class="action" href="clima/">
         <span class="action-icon" aria-hidden="true">
           <svg viewBox="0 0 64 64" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">

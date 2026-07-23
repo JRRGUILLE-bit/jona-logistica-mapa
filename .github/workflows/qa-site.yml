@@ -53,10 +53,12 @@ jobs:
 
       - name: Apply deterministic QA fixes
         if: github.event_name == 'push'
-        run: python scripts/qa_apply.py
+        run: |
+          python scripts/qa_apply.py
+          python scripts/qa_visual.py
 
       - name: Check Python syntax
-        run: python -m py_compile scripts/qa_check.py scripts/qa_apply.py
+        run: python -m py_compile scripts/qa_check.py scripts/qa_apply.py scripts/qa_visual.py
 
       - name: Check JavaScript syntax
         run: |
@@ -78,6 +80,6 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html 404.html clima/index.html movilidad/index.html supermercados/index.html docs/index.html apps/index.html discord/index.html offline.js manifest.webmanifest service-worker.js
+          git add -A
           git commit -m "Apply automated site QA fixes"
           git push

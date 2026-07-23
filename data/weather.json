@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-23T04:14:15-03:00",
+  "generated_at": "2026-07-23T04:17:47-03:00",
   "timezone": "America/Montevideo",
   "weekends": [
     {
@@ -882,7 +882,7 @@
     "metsul": {
       "status": "ok",
       "kind": "Análisis humanos",
-      "fetched_at": "2026-07-23T04:14:15-03:00",
+      "fetched_at": "2026-07-23T04:17:47-03:00",
       "page_url": "https://metsul.com/categoria/uruguai/",
       "api_url": "https://metsul.com/wp-json/wp/v2/posts?categories=23&per_page=12&_fields=id%2Cdate%2Cmodified%2Clink%2Ctitle%2Cexcerpt%2Ccontent%2Cauthor",
       "articles": [
@@ -899,7 +899,8 @@
           "language": "es",
           "original_language": "pt",
           "translation_status": "translated",
-          "translation_engine": "Argos Translate"
+          "translation_engine": "Argos Translate",
+          "translation_route": "direct"
         },
         {
           "id": 267775,
@@ -914,7 +915,8 @@
           "language": "es",
           "original_language": "pt",
           "translation_status": "translated",
-          "translation_engine": "Argos Translate"
+          "translation_engine": "Argos Translate",
+          "translation_route": "direct"
         },
         {
           "id": 267771,
@@ -929,7 +931,8 @@
           "language": "es",
           "original_language": "pt",
           "translation_status": "translated",
-          "translation_engine": "Argos Translate"
+          "translation_engine": "Argos Translate",
+          "translation_route": "direct"
         },
         {
           "id": 267743,
@@ -944,7 +947,8 @@
           "language": "es",
           "original_language": "pt",
           "translation_status": "translated",
-          "translation_engine": "Argos Translate"
+          "translation_engine": "Argos Translate",
+          "translation_route": "direct"
         },
         {
           "id": 267731,
@@ -959,7 +963,8 @@
           "language": "es",
           "original_language": "pt",
           "translation_status": "translated",
-          "translation_engine": "Argos Translate"
+          "translation_engine": "Argos Translate",
+          "translation_route": "direct"
         },
         {
           "id": 267714,
@@ -974,7 +979,8 @@
           "language": "es",
           "original_language": "pt",
           "translation_status": "translated",
-          "translation_engine": "Argos Translate"
+          "translation_engine": "Argos Translate",
+          "translation_route": "direct"
         },
         {
           "id": 267724,
@@ -989,7 +995,8 @@
           "language": "es",
           "original_language": "pt",
           "translation_status": "translated",
-          "translation_engine": "Argos Translate"
+          "translation_engine": "Argos Translate",
+          "translation_route": "direct"
         },
         {
           "id": 267705,
@@ -1004,7 +1011,8 @@
           "language": "es",
           "original_language": "pt",
           "translation_status": "translated",
-          "translation_engine": "Argos Translate"
+          "translation_engine": "Argos Translate",
+          "translation_route": "direct"
         },
         {
           "id": 267708,
@@ -1019,7 +1027,8 @@
           "language": "es",
           "original_language": "pt",
           "translation_status": "translated",
-          "translation_engine": "Argos Translate"
+          "translation_engine": "Argos Translate",
+          "translation_route": "direct"
         },
         {
           "id": 267692,
@@ -1034,7 +1043,8 @@
           "language": "es",
           "original_language": "pt",
           "translation_status": "translated",
-          "translation_engine": "Argos Translate"
+          "translation_engine": "Argos Translate",
+          "translation_route": "direct"
         }
       ],
       "translation": {
@@ -1042,14 +1052,15 @@
         "engine": "Argos Translate",
         "source_language": "pt",
         "target_language": "es",
-        "translated_now": 10,
-        "from_cache": 0
+        "route": "direct",
+        "translated_now": 0,
+        "from_cache": 10
       }
     },
     "inumet": {
       "status": "ok",
       "kind": "Fuente oficial",
-      "fetched_at": "2026-07-23T04:14:15-03:00",
+      "fetched_at": "2026-07-23T04:17:47-03:00",
       "updated_at": "2026-07-23T00:00:00-03:00",
       "forecast_url": "https://www.inumet.gub.uy/tiempo/pronostico",
       "forecast": [
@@ -1117,7 +1128,7 @@
     "models": {
       "status": "ok",
       "kind": "Modelos numéricos",
-      "fetched_at": "2026-07-23T04:14:15-03:00",
+      "fetched_at": "2026-07-23T04:17:47-03:00",
       "provider": "Open-Meteo",
       "provider_url": "https://open-meteo.com/",
       "models": [

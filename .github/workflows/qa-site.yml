@@ -21,6 +21,8 @@ on:
       - "assets/**"
       - "scripts/qa_*.py"
       - ".github/workflows/qa-site.yml"
+  schedule:
+    - cron: "10 11 * * *"
   workflow_dispatch:
 
 permissions:

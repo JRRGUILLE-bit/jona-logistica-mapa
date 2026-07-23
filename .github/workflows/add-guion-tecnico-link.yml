@@ -1,4 +1,4 @@
-name: Add guion tecnico link
+name: Publish Docs section
 
 on:
   push:
@@ -11,41 +11,74 @@ permissions:
   contents: write
 
 jobs:
-  update-links:
+  publish-docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Add guion tecnico card
+
+      - name: Create Docs section and preserve old URL
         run: |
           python - <<'PY'
           from pathlib import Path
 
-          path = Path('links/index.html')
-          html = path.read_text(encoding='utf-8')
+          links_path = Path('links/index.html')
+          docs_path = Path('docs/index.html')
+          home_path = Path('index.html')
 
-          html = html.replace('aria-label="Seis documentos disponibles"', 'aria-label="Siete documentos disponibles"')
-          html = html.replace('<strong>6</strong>\n        <span>Accesos directos</span>', '<strong>7</strong>\n        <span>Accesos directos</span>')
+          docs = links_path.read_text(encoding='utf-8')
 
-          marker = 'https://docs.google.com/spreadsheets/d/1gX1jZB8dDDLredElCxHmNVKExktuTB5qf5nzVUCo5U8/edit?usp=drive_link'
-          if marker not in html:
-              needle = '''      <a class="link-card sheet" href="https://docs.google.com/spreadsheets/d/1YecQX-C6c6acIv_-rPKAzYUpezzngsgB8IYx-5iq-RY/edit?usp=sharing" target="_blank" rel="noopener noreferrer">'''
-              card = '''      <a class="link-card sheet" href="https://docs.google.com/spreadsheets/d/1gX1jZB8dDDLredElCxHmNVKExktuTB5qf5nzVUCo5U8/edit?usp=drive_link" target="_blank" rel="noopener noreferrer">
+          docs = docs.replace('aria-label="Seis documentos disponibles"', 'aria-label="Siete documentos disponibles"')
+          docs = docs.replace('<strong>6</strong>\n        <span>Accesos directos</span>', '<strong>7</strong>\n        <span>Accesos directos</span>')
+          docs = docs.replace('https://jrrguille-bit.github.io/jona-logistica/links/', 'https://jrrguille-bit.github.io/jona-logistica/docs/')
+
+          guion_tecnico_url = 'https://docs.google.com/spreadsheets/d/1gX1jZB8dDDLredElCxHmNVKExktuTB5qf5nzVUCo5U8/edit?usp=drive_link'
+          if guion_tecnico_url not in docs:
+              plan_rodaje = '''      <a class="link-card sheet" href="https://docs.google.com/spreadsheets/d/1YecQX-C6c6acIv_-rPKAzYUpezzngsgB8IYx-5iq-RY/edit?usp=sharing" target="_blank" rel="noopener noreferrer">'''
+              guion_tecnico = '''      <a class="link-card sheet" href="https://docs.google.com/spreadsheets/d/1gX1jZB8dDDLredElCxHmNVKExktuTB5qf5nzVUCo5U8/edit?usp=drive_link" target="_blank" rel="noopener noreferrer">
         <span class="link-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="5" y="6" width="22" height="21" rx="2"></rect><path d="M5 12h22M11 12v15M20 12v15M11 18h16M11 23h16"></path></svg></span>
         <span class="link-copy"><span class="file-type">Planilla</span><strong>Guion técnico</strong><span>Desglose técnico de planos, cámara y necesidades de rodaje.</span></span>
         <span class="external" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-9 9"></path><path d="M19 13v6H5V5h6"></path></svg></span>
       </a>
 
 '''
-              if needle not in html:
-                  raise SystemExit('No se encontró el punto de inserción del guion técnico')
-              html = html.replace(needle, card + needle, 1)
+              if plan_rodaje not in docs:
+                  raise SystemExit('No se encontró el punto de inserción para Guion técnico')
+              docs = docs.replace(plan_rodaje, guion_tecnico + plan_rodaje, 1)
 
-          path.write_text(html, encoding='utf-8')
+          docs_path.parent.mkdir(parents=True, exist_ok=True)
+          docs_path.write_text(docs, encoding='utf-8')
+
+          home = home_path.read_text(encoding='utf-8')
+          home = home.replace('<a class="action" href="links/">', '<a class="action" href="docs/">', 1)
+          home = home.replace('<span class="action-title">Links</span>', '<span class="action-title">Docs</span>', 1)
+          old_icon = '''            <path d="M26 38l12-12"></path>
+            <path d="M20 44l-4 4a10 10 0 0 1-14-14l12-12a10 10 0 0 1 14 0"></path>
+            <path d="M44 20l4-4a10 10 0 0 1 14 14L50 42a10 10 0 0 1-14 0"></path>'''
+          new_icon = '''            <path d="M14 8h25l11 11v37H14z"></path>
+            <path d="M39 8v12h11M22 30h20M22 39h20M22 48h14"></path>'''
+          home = home.replace(old_icon, new_icon, 1)
+          home_path.write_text(home, encoding='utf-8')
+
+          redirect = '''<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="refresh" content="0; url=../docs/">
+<link rel="canonical" href="https://jrrguille-bit.github.io/jona-logistica/docs/">
+<title>Docs — Jona Logística</title>
+<script>location.replace('../docs/');</script>
+</head>
+<body><p>Redirigiendo a <a href="../docs/">Docs</a>…</p></body>
+</html>
+'''
+          links_path.write_text(redirect, encoding='utf-8')
           PY
-      - name: Commit link
+
+      - name: Commit Docs section
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add links/index.html
-          git commit -m "Add guion tecnico production link"
+          git add index.html docs/index.html links/index.html
+          git commit -m "Rename Links section to Docs and add guion tecnico"
           git push

@@ -19,283 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  color-scheme:dark;
-  --ink:#f5f0e8;
-  --muted:#b9c2c3;
-  --accent:#dc9140;
-  --accent-strong:#f0ab58;
-  --accent-soft:rgba(220,145,64,.16);
-  --line:rgba(220,145,64,.48);
-  --hair:rgba(255,255,255,.11);
-  --focus:#ffd18f;
-  --shadow:0 26px 70px rgba(0,0,0,.34);
-}
-*{box-sizing:border-box}
-html{min-height:100%;background:#07151d}
-body{
-  margin:0;
-  min-height:100svh;
-  overflow-x:hidden;
-  position:relative;
-  isolation:isolate;
-  color:var(--ink);
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#07151d;
-}
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  background:url("assets/site-bg-1600.webp") center/cover no-repeat;
-  filter:contrast(1.1) brightness(.78) saturate(.82);
-  transform:scale(1.012);
-}
-body:after{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 50% 17%,rgba(27,92,119,.11),transparent 42%),
-    linear-gradient(180deg,rgba(3,13,19,.20),rgba(3,13,19,.68));
-}
-.shell{
-  position:relative;
-  z-index:1;
-  width:min(100%,1220px);
-  min-height:100svh;
-  margin:0 auto;
-  padding:max(46px,env(safe-area-inset-top)) clamp(18px,4vw,56px) max(26px,env(safe-area-inset-bottom));
-  display:grid;
-  align-items:start;
-  justify-items:center;
-}
-.hero{
-  width:min(100%,1080px);
-  text-align:center;
-  animation:arrive .7s cubic-bezier(.2,.8,.2,1) both;
-}
-.eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  margin:0 0 15px;
-  padding:7px 12px;
-  border:1px solid rgba(220,145,64,.34);
-  border-radius:999px;
-  background:rgba(4,18,26,.52);
-  color:var(--accent-strong);
-  font-family:Oswald,Impact,sans-serif;
-  font-size:11px;
-  font-weight:500;
-  letter-spacing:.23em;
-  text-transform:uppercase;
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-}
-.eyebrow:before{
-  content:"";
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--accent);
-  box-shadow:0 0 0 5px var(--accent-soft);
-}
-.brand{
-  margin:0;
-  font-family:Oswald,Impact,"Arial Narrow",sans-serif;
-  text-transform:uppercase;
-  text-shadow:0 10px 38px rgba(0,0,0,.48);
-}
-.brand-main{
-  display:block;
-  font-size:clamp(44px,6.5vw,74px);
-  font-weight:400;
-  line-height:.95;
-  letter-spacing:.12em;
-  padding-left:.12em;
-  color:#ebe7df;
-}
-.brand-emphasis{
-  display:block;
-  margin-top:.12em;
-  font-size:clamp(54px,7.8vw,88px);
-  font-weight:500;
-  line-height:.9;
-  letter-spacing:.045em;
-  color:var(--ink);
-}
-.actions{
-  width:100%;
-  margin:28px auto 0;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(285px,1fr));
-  gap:14px;
-}
-.action{
-  position:relative;
-  min-width:0;
-  min-height:132px;
-  padding:20px 50px 20px 18px;
-  display:grid;
-  grid-template-columns:58px minmax(0,1fr);
-  align-items:center;
-  gap:15px;
-  overflow:hidden;
-  border:1px solid var(--hair);
-  border-radius:16px;
-  background:linear-gradient(145deg,rgba(4,18,27,.88),rgba(8,29,39,.72));
-  color:var(--ink);
-  box-shadow:var(--shadow),inset 0 1px rgba(255,255,255,.035);
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-  text-decoration:none;
-  text-align:left;
-  transition:border-color .2s ease,transform .2s ease,background .2s ease,box-shadow .2s ease;
-}
-.action:before{
-  content:"";
-  position:absolute;
-  inset:0 auto 0 0;
-  width:3px;
-  background:linear-gradient(180deg,transparent,var(--accent),transparent);
-  opacity:.72;
-}
-.action:after{
-  content:"";
-  position:absolute;
-  right:-42px;
-  top:-54px;
-  width:135px;
-  height:135px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(220,145,64,.13),transparent 68%);
-  opacity:.7;
-  transition:transform .25s ease,opacity .25s ease;
-}
-.action:hover{
-  transform:translateY(-4px);
-  border-color:var(--line);
-  background:linear-gradient(145deg,rgba(9,30,40,.96),rgba(9,36,47,.84));
-  box-shadow:0 30px 70px rgba(0,0,0,.42),0 0 0 1px var(--accent-soft);
-}
-.action:hover:after{transform:scale(1.14);opacity:1}
-.action:focus-visible{outline:3px solid var(--focus);outline-offset:5px}
-.action-icon{
-  width:58px;
-  height:58px;
-  display:grid;
-  place-items:center;
-  border:1px solid rgba(220,145,64,.38);
-  border-radius:14px;
-  background:linear-gradient(145deg,rgba(220,145,64,.12),rgba(4,17,24,.45));
-  color:var(--accent-strong);
-  box-shadow:inset 0 1px rgba(255,255,255,.04);
-}
-.action-icon svg{width:32px;height:32px;stroke:currentColor}
-.action-copy{min-width:0;position:relative;z-index:1}
-.action-kicker{
-  display:block;
-  margin-bottom:6px;
-  color:var(--accent);
-  font-size:9px;
-  font-weight:700;
-  letter-spacing:.15em;
-  text-transform:uppercase;
-}
-.action-title{
-  display:block;
-  font-family:Oswald,Impact,sans-serif;
-  font-size:clamp(24px,2.5vw,30px);
-  font-weight:500;
-  line-height:1.05;
-  letter-spacing:.045em;
-  text-transform:uppercase;
-}
-.action-description{
-  display:block;
-  margin-top:7px;
-  color:var(--muted);
-  font-size:11px;
-  line-height:1.45;
-}
-.arrow{
-  position:absolute;
-  z-index:2;
-  right:20px;
-  top:50%;
-  width:12px;
-  height:12px;
-  border-top:2px solid var(--accent);
-  border-right:2px solid var(--accent);
-  transform:translateY(-50%) rotate(45deg);
-  transition:transform .2s ease;
-}
-.action:hover .arrow{transform:translate(4px,-50%) rotate(45deg)}
-.footer{
-  margin:24px auto 0;
-  padding-top:18px;
-  border-top:1px solid rgba(255,255,255,.10);
-  color:rgba(245,240,232,.66);
-  text-shadow:0 3px 12px rgba(0,0,0,.6);
-}
-.copyright{
-  margin:0;
-  font-family:Oswald,Impact,sans-serif;
-  font-size:10px;
-  letter-spacing:.15em;
-  text-transform:uppercase;
-}
-.producer{
-  margin:9px 0 0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  color:rgba(245,240,232,.76);
-  font-size:11px;
-  line-height:1.4;
-}
-.producer strong{color:var(--ink);font-weight:600}
-.instagram-link{
-  width:28px;
-  height:28px;
-  display:inline-grid;
-  place-items:center;
-  border:1px solid rgba(220,145,64,.42);
-  border-radius:50%;
-  color:var(--accent-strong);
-  background:rgba(4,18,26,.46);
-  text-decoration:none;
-  transition:transform .18s ease,border-color .18s ease,background .18s ease;
-}
-.instagram-link:hover{transform:translateY(-2px);border-color:var(--accent-strong);background:var(--accent-soft)}
-.instagram-link:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
-.instagram-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-@keyframes arrive{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:760px){
-  body:before{background-position:center center;filter:contrast(1.1) brightness(.66) saturate(.75)}
-  .shell{padding:max(18px,env(safe-area-inset-top)) 15px max(26px,env(safe-area-inset-bottom));align-items:start}
-  .hero{padding-top:0}
-  .eyebrow{margin-bottom:14px;letter-spacing:.18em}
-  .brand-main{font-size:clamp(35px,10.4vw,50px);letter-spacing:.09em;padding-left:.09em}
-  .brand-emphasis{font-size:clamp(44px,13vw,64px)}
-  .actions{grid-template-columns:1fr;gap:11px;margin-top:24px}
-  .action{min-height:112px;padding:17px 47px 17px 15px;grid-template-columns:54px minmax(0,1fr);gap:14px;border-radius:13px}
-  .action-icon{width:52px;height:52px;border-radius:12px}
-  .action-icon svg{width:29px;height:29px}
-  .action-title{font-size:24px}
-  .action-description{font-size:11px;margin-top:6px}
-  .arrow{right:18px}
-  .producer{flex-wrap:wrap;padding:0 12px}
-}
-@media(prefers-reduced-motion:reduce){.hero{animation:none}.action,.action:after,.arrow,.instagram-link{transition:none}}
-</style>
+<link rel="stylesheet" href="home.css?v=20260723-1">
 <link rel="stylesheet" href="site-touchup.css?v=20260723-1">
 <link rel="preload" as="image" href="assets/site-bg-1600.webp" fetchpriority="high">
 </head>
@@ -311,86 +35,41 @@ body:after{
     <nav class="actions" aria-label="Secciones de producción">
       <a class="action" href="clima/">
         <span class="action-icon" aria-hidden="true">
-          <svg viewBox="0 0 64 64" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="30" cy="29" r="11"></circle>
-            <path d="M30 7v7M30 44v7M8 29h7M45 29h7M14.5 13.5l5 5M40.5 39.5l5 5M45.5 13.5l-5 5M19.5 39.5l-5 5"></path>
-            <path d="M34 47h15a8 8 0 0 0 0-16 13 13 0 0 0-24-4"></path>
-          </svg>
+          <svg viewBox="0 0 64 64"><circle cx="30" cy="29" r="11"></circle><path d="M30 7v7M30 44v7M8 29h7M45 29h7M14.5 13.5l5 5M40.5 39.5l5 5M45.5 13.5l-5 5M19.5 39.5l-5 5"></path><path d="M34 47h15a8 8 0 0 0 0-16 13 13 0 0 0-24-4"></path></svg>
         </span>
-        <span class="action-copy">
-          <span class="action-kicker">Pronóstico</span>
-          <span class="action-title">Clima</span>
-          <span class="action-description">Condiciones previstas para cada jornada.</span>
-        </span>
+        <span class="action-copy"><span class="action-kicker">Pronóstico</span><span class="action-title">Clima</span><span class="action-description">Condiciones previstas para cada jornada.</span></span>
         <span class="arrow" aria-hidden="true"></span>
       </a>
 
       <a class="action" href="movilidad/">
         <span class="action-icon" aria-hidden="true">
-          <svg viewBox="0 0 64 64" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 39l4-14c1-4 4-6 8-6h16c4 0 7 2 8 6l4 14"></path>
-            <path d="M9 39h46v10H9z"></path>
-            <path d="M18 29h28"></path>
-            <circle cx="19" cy="49" r="4"></circle>
-            <circle cx="45" cy="49" r="4"></circle>
-            <path d="M6 32h7M51 32h7"></path>
-          </svg>
+          <svg viewBox="0 0 64 64"><path d="M12 39l4-14c1-4 4-6 8-6h16c4 0 7 2 8 6l4 14"></path><path d="M9 39h46v10H9zM18 29h28"></path><circle cx="19" cy="49" r="4"></circle><circle cx="45" cy="49" r="4"></circle><path d="M6 32h7M51 32h7"></path></svg>
         </span>
-        <span class="action-copy">
-          <span class="action-kicker">Traslados</span>
-          <span class="action-title">Movilidad</span>
-          <span class="action-description">Autos, conductores, pasajeros y recorridos.</span>
-        </span>
+        <span class="action-copy"><span class="action-kicker">Traslados</span><span class="action-title">Movilidad</span><span class="action-description">Autos, conductores, pasajeros y recorridos.</span></span>
         <span class="arrow" aria-hidden="true"></span>
       </a>
 
       <a class="action" href="supermercados/">
         <span class="action-icon" aria-hidden="true">
-          <svg viewBox="0 0 64 64" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 11h7l6 29h29l7-20H16"></path>
-            <circle cx="25" cy="50" r="3"></circle>
-            <circle cx="46" cy="50" r="3"></circle>
-            <path d="M42 8v16M34 16h16"></path>
-          </svg>
+          <svg viewBox="0 0 64 64"><path d="M6 11h7l6 29h29l7-20H16"></path><circle cx="25" cy="50" r="3"></circle><circle cx="46" cy="50" r="3"></circle><path d="M42 8v16M34 16h16"></path></svg>
         </span>
-        <span class="action-copy">
-          <span class="action-kicker">Cercanía</span>
-          <span class="action-title">Compras</span>
-          <span class="action-description">Supermercados, farmacias y comercios útiles.</span>
-        </span>
+        <span class="action-copy"><span class="action-kicker">Cercanía</span><span class="action-title">Compras</span><span class="action-description">Supermercados, farmacias y comercios útiles.</span></span>
         <span class="arrow" aria-hidden="true"></span>
       </a>
 
-      <a class="action" href="links/">
+      <a class="action" href="docs/">
         <span class="action-icon" aria-hidden="true">
-          <svg viewBox="0 0 64 64" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M26 38l12-12"></path>
-            <path d="M20 44l-4 4a10 10 0 0 1-14-14l12-12a10 10 0 0 1 14 0"></path>
-            <path d="M44 20l4-4a10 10 0 0 1 14 14L50 42a10 10 0 0 1-14 0"></path>
-          </svg>
+          <svg viewBox="0 0 64 64"><path d="M14 8h25l11 11v37H14z"></path><path d="M39 8v12h11M22 30h20M22 39h20M22 48h14"></path></svg>
         </span>
-        <span class="action-copy">
-          <span class="action-kicker">Documentación</span>
-          <span class="action-title">Links</span>
-          <span class="action-description">Guion, planes, equipos y citaciones.</span>
-        </span>
+        <span class="action-copy"><span class="action-kicker">Documentación</span><span class="action-title">Docs</span><span class="action-description">Guion, planes, equipos y citaciones.</span></span>
         <span class="arrow" aria-hidden="true"></span>
       </a>
 
       <a class="action" href="apps/">
         <span class="action-icon" aria-hidden="true">
-          <svg viewBox="0 0 64 64" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="10" y="10" width="18" height="18" rx="3"></rect>
-            <rect x="36" y="10" width="18" height="18" rx="3"></rect>
-            <rect x="10" y="36" width="18" height="18" rx="3"></rect>
-            <path d="M45 36v18M36 45h18"></path>
-          </svg>
+          <svg viewBox="0 0 64 64"><rect x="10" y="10" width="18" height="18" rx="3"></rect><rect x="36" y="10" width="18" height="18" rx="3"></rect><rect x="10" y="36" width="18" height="18" rx="3"></rect><path d="M45 36v18M36 45h18"></path></svg>
         </span>
-        <span class="action-copy">
-          <span class="action-kicker">Herramientas</span>
-          <span class="action-title">Apps</span>
-          <span class="action-description">Descargas y aplicaciones útiles para el rodaje.</span>
-        </span>
+        <span class="action-copy"><span class="action-kicker">Herramientas</span><span class="action-title">Apps</span><span class="action-description">Descargas y aplicaciones útiles para el rodaje.</span></span>
         <span class="arrow" aria-hidden="true"></span>
       </a>
     </nav>

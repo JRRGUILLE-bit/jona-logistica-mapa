@@ -1,0 +1,86 @@
+name: Clean site copy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/clean-site-copy.yml
+
+permissions:
+  contents: write
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Remove redundant site copy
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def edit(path, replacements):
+              file = Path(path)
+              text = file.read_text(encoding='utf-8')
+              original = text
+              for old, new in replacements:
+                  text = text.replace(old, new)
+              if text != original:
+                  file.write_text(text, encoding='utf-8')
+                  print(f'updated {path}')
+
+          edit('index.html', [
+              ('<span class="action-title">Pronóstico del clima</span>\n          <span class="action-meta">MetSul · INUMET · Modelos</span>', '<span class="action-title">Clima</span>'),
+              ('<span class="action-title">Movilidad del crew</span>\n          <span class="action-meta">Autos · Conductores · Pasajeros</span>', '<span class="action-title">Movilidad</span>'),
+              ('<span class="action-title">Supermercados y farmacias</span>\n          <span class="action-meta">Segundo fin de semana</span>', '<span class="action-title">Compras</span>'),
+          ])
+
+          edit('movilidad/index.html', [
+              ('<header class="hero"><p class="eyebrow">Producción Jona</p><h1>Movilidad</h1><p>Distribución de autos del crew para las jornadas del sábado 25 y domingo 26 de julio. Cada tarjeta indica quién conduce, desde qué zona sale el grupo y quiénes viajan juntos.</p></header>', '<header class="hero"><p class="eyebrow">Producción Jona</p><h1>Movilidad</h1></header>'),
+              ('<footer>Jona Logística · Movilidad de crew · Julio de 2026</footer>\n', ''),
+          ])
+
+          edit('clima/index.html', [
+              ('<a class="home-link" href="../" aria-label="Volver a Jona Logística"><span aria-hidden="true">←</span> Jona Logística</a>', '<a class="home-link" href="../" aria-label="Volver al inicio"><span aria-hidden="true">←</span> Inicio</a>'),
+              ('        <p>MetSul, INUMET y modelos numéricos comparados según cada día, locación y bloque horario del plan de rodaje.</p>\n', ''),
+              ('<button id="refreshWeather" class="update-button" type="button"><span class="refresh-icon" aria-hidden="true">↻</span>Actualizar pronóstico</button>', '<button id="refreshWeather" class="update-button" type="button"><span class="refresh-icon" aria-hidden="true">↻</span>Actualizar</button>'),
+              ('          <a class="update-link" href="https://github.com/JRRGUILLE-bit/jona-logistica-mapa/actions/workflows/update-weather.yml" target="_blank" rel="noopener">Forzar consulta en GitHub</a>\n', ''),
+              ('    <p>Artículos humanos recientes relacionados con Uruguay. Si no existe uno específico para una fecha, la página lo indica sin atribuirle a MetSul una conclusión automática.</p>\n', ''),
+              ('    INUMET es la fuente oficial de advertencias en Uruguay. Los cálculos horarios se basan en ECMWF IFS y NOAA GFS, servidos mediante <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>. Las tendencias de largo plazo pueden cambiar; confirmar siempre antes de mover un rodaje.\n', '    Alertas oficiales: INUMET.\n'),
+              ("const modelBody=`Detalle horario con ${escapeHtml(modelNames)}. Estado: ${escapeHtml(models.status||'sin datos')}.`;", "const modelBody=escapeHtml(modelNames);"),
+              ('return `<div class="source-note"><h3>INUMET oficial</h3><p>El pronóstico oficial todavía no alcanza esta fecha. INUMET se incorporará automáticamente cuando entre en su ventana de tres días.</p></div>`;', 'return `<div class="source-note"><h3>INUMET</h3><p>Aún sin datos oficiales.</p></div>`;'),
+              ('return `<div class="source-note"><h3>MetSul</h3><p>No se detectó todavía un análisis de MetSul que mencione específicamente esta fecha. <a href="https://metsul.com/categoria/uruguai/" target="_blank" rel="noopener">Ver Uruguay en MetSul</a>.</p></div>`;', 'return `<div class="source-note"><h3>MetSul</h3><p>Sin análisis específico. <a href="https://metsul.com/categoria/uruguai/" target="_blank" rel="noopener">Abrir MetSul</a>.</p></div>`;'),
+              ('return `<div class="source-note"><h3>MetSul</h3><p>Análisis detectados para esta fecha:</p><ul>${links}</ul></div>`;', 'return `<div class="source-note"><h3>MetSul</h3><ul>${links}</ul></div>`;'),
+          ])
+
+          edit('supermercados/index.html', [
+              ('<a class="home-link" href="../" aria-label="Volver a Jona Logística"><span aria-hidden="true">←</span> Jona Logística</a>', '<a class="home-link" href="../" aria-label="Volver al inicio"><span aria-hidden="true">←</span> Inicio</a>'),
+              ('    <div class="label">Segundo fin de semana · Parque del Plata</div>', '    <div class="label">Parque del Plata</div>'),
+              ('    <p>Compras, urgencias y opciones cercanas a la casa de producción. Consultá horarios, distancias y abrí cada lugar directamente en Maps.</p>\n', ''),
+              ('<main class="panel"><div class="panel-head"><div><h2>Opciones cercanas</h2><p>Horario, distancia aproximada y si conviene ir caminando, en bici o en auto.</p></div><a class="csv-link" href="../jona_supermercados_simple_distancia_horario.csv">Descargar CSV</a></div>', '<main class="panel"><div class="panel-head"><div><h2>Lugares</h2></div><a class="csv-link" href="../jona_supermercados_simple_distancia_horario.csv">Descargar CSV</a></div>'),
+              ('<footer>Distancias estimadas desde la zona de referencia. Confirmar horarios por teléfono o Google Maps antes del rodaje, especialmente fuera de temporada, de noche o en feriados.</footer>', '<footer>Confirmar horarios antes de salir.</footer>'),
+              ('  min-height:270px;', '  min-height:220px;'),
+              ('  .hero{min-height:235px;padding:28px 20px;border-radius:12px}', '  .hero{min-height:190px;padding:28px 20px;border-radius:12px}'),
+              ("direccion:'Parque del Plata — dirección exacta a confirmar en Maps'", "direccion:'Parque del Plata'"),
+              ("horario:'Horario extendido / 24 h según Maps-Waze; confirmar'", "horario:'Posible 24 h · confirmar'"),
+              ("direccion:'La Floresta — dirección exacta a confirmar en Maps'", "direccion:'La Floresta'"),
+              ("direccion:'La Floresta — visto en Maps, validar horario'", "direccion:'La Floresta'"),
+              ("direccion:'Búsqueda viva en Google Maps: farmacias cerca de Parque del Plata'", "direccion:'Parque del Plata'"),
+              ("direccion:'Búsqueda viva en Google Maps: farmacias cerca de Comisaría Parque del Plata'", "direccion:'Zona de la comisaría'"),
+              ("direccion:'Búsqueda viva para urgencias: farmacia de turno Parque del Plata'", "direccion:'Parque del Plata'"),
+              ("direccion:'Búsqueda viva ampliada para conseguir opción abierta cerca'", "direccion:'Atlántida / Las Toscas'"),
+          ])
+          PY
+
+      - name: Commit cleanup
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html movilidad/index.html clima/index.html supermercados/index.html
+          if git diff --cached --quiet; then
+            echo "No changes required."
+            exit 0
+          fi
+          git commit -m "Remove redundant copy across logistics site"
+          git push

@@ -171,3 +171,15 @@ body:after{
   .next-shoot-actions{grid-column:1/-1;justify-content:stretch}
   .next-shoot-actions a{flex:1 1 120px}
 }
+
+/* Iconos personalizados subidos para Clima y Movilidad */
+.actions .action:nth-child(1) .action-icon,
+.actions .action:nth-child(2) .action-icon{
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+  background-size:cover!important;
+}
+.actions .action:nth-child(1) .action-icon{background-image:url("clima.png")!important}
+.actions .action:nth-child(2) .action-icon{background-image:url("movildiad.png")!important}
+.actions .action:nth-child(1) .action-icon svg,
+.actions .action:nth-child(2) .action-icon svg{visibility:hidden}

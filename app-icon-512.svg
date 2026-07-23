@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-labelledby="title desc">
+  <title id="title">Jona Ops</title>
+  <desc id="desc">Ícono de la Base de operaciones de Jona tenía 15 años</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07151d"/>
+      <stop offset="1" stop-color="#0b3041"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#123c4e"/>
+      <stop offset="1" stop-color="#081d28"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect x="52" y="52" width="408" height="408" rx="92" fill="url(#panel)" stroke="#dc9140" stroke-width="12"/>
+  <path d="M118 154h276v62H118z" fill="#f5f0e8" opacity=".96"/>
+  <path d="M118 154l54-62h64l-54 62zm108 0l54-62h64l-54 62zm108 0l54-62h30l-24 62z" fill="#dc9140"/>
+  <rect x="118" y="216" width="276" height="178" rx="24" fill="#07151d" stroke="#f5f0e8" stroke-width="8" opacity=".96"/>
+  <text x="256" y="346" text-anchor="middle" fill="#f5f0e8" font-family="Arial,Helvetica,sans-serif" font-size="146" font-weight="700" letter-spacing="-8">15</text>
+  <circle cx="256" cy="420" r="9" fill="#dc9140"/>
+</svg>

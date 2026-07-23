@@ -1,127 +1,231 @@
-# Jona Logística
+# Jona tenía 15 años — Base de operaciones
 
-[![Actualizar clima](https://github.com/JRRGUILLE-bit/jona-logistica-mapa/actions/workflows/update-weather.yml/badge.svg)](https://github.com/JRRGUILLE-bit/jona-logistica-mapa/actions/workflows/update-weather.yml)
+[![Actualizar clima](https://github.com/JRRGUILLE-bit/jona-logistica/actions/workflows/update-weather.yml/badge.svg)](https://github.com/JRRGUILLE-bit/jona-logistica/actions/workflows/update-weather.yml)
 
-Centro web de apoyo para la producción de **Jona**. Reúne en una sola landing el pronóstico meteorológico de las jornadas de rodaje, la movilidad del crew y el acceso rápido a supermercados, farmacias y otros comercios útiles.
+Sitio web público de apoyo operativo para la producción audiovisual de **Jona tenía 15 años**. Centraliza información de rodaje, pronóstico meteorológico, movilidad, documentación, comercios cercanos, aplicaciones técnicas y comunicación del equipo.
 
-**Sitio publicado:** [jrrguille-bit.github.io/jona-logistica-mapa](https://jrrguille-bit.github.io/jona-logistica-mapa/)
+**Sitio publicado:** [jrrguille-bit.github.io/jona-logistica](https://jrrguille-bit.github.io/jona-logistica/)
 
-## Secciones
+## Objetivo
 
-### Clima de rodaje
+Reducir la cantidad de mensajes, planillas y enlaces dispersos que el equipo necesita consultar durante la preparación y las jornadas de rodaje. La portada funciona como una **base de operaciones** rápida, adaptada a escritorio y celular.
 
-- Cuatro jornadas agrupadas en primer y segundo fin de semana.
-- Resumen general por día con nivel de riesgo, lluvia, temperatura, ráfagas y confianza.
-- Detalle por bloque horario y por locación del plan de rodaje.
-- Comparación de los modelos ECMWF IFS y GFS.
-- Contexto editorial de MetSul y pronóstico/advertencias oficiales de INUMET.
-- Indicación clara cuando una fecha todavía está fuera del alcance de los modelos.
-- Actualización automática horaria mediante GitHub Actions, con cuatro ejecuciones diarias adicionales de refuerzo.
-- Botón para volver a cargar sin caché el último pronóstico publicado y acceso a la ejecución manual para usuarios autorizados.
+La franja **Próxima jornada** cambia automáticamente según la fecha. Para las jornadas con movilidad cargada enlaza directamente al día correspondiente; para las restantes dirige a Docs. También muestra la hora real de la última actualización meteorológica publicada en `data/weather.json`.
 
-Las jornadas configuradas actualmente son:
+## Secciones del sitio
 
-| Jornada | Fecha | Locaciones de referencia |
+| Sección | Ruta | Contenido |
+|---|---|---|
+| **Clima** | `/clima/` | Pronóstico por jornada, bloque horario y locación; comparación de modelos y fuentes oficiales. |
+| **Movilidad** | `/movilidad/` | Autos, conductores, pasajeros, horarios, puntos de encuentro y recorridos del primer fin de semana. |
+| **Compras** | `/supermercados/` | Supermercados, almacenes, carnicerías y búsquedas de farmacias cercanas, con accesos a Maps. |
+| **Docs** | `/docs/` | Guion, guion técnico, plan de rodaje, plan de trabajo, citaciones y planillas de equipos. |
+| **Apps** | `/apps/` | Aplicaciones oficiales para equipos del rodaje y descargas públicas de MENELAO. |
+| **Discord** | `/discord/` | Descargas de Discord para iOS y Android y espacio reservado para la futura invitación al servidor. |
+
+La ruta histórica `/links/` se conserva como redirección hacia `/docs/` para no romper accesos guardados.
+
+## Jornadas configuradas
+
+| Jornada | Fecha | Referencias operativas |
 |---|---|---|
 | Día 1 | sábado 25 de julio de 2026 | Taller en Ciudad de la Costa y Casa Negro en La Paz |
-| Día 2 | domingo 26 de julio de 2026 | Auto/Casa Jona en La Paz y Colina en Las Piedras |
+| Día 2 | domingo 26 de julio de 2026 | Plaza de La Paz y Colina en Las Piedras |
 | Día 3 | sábado 1 de agosto de 2026 | Colina en La Paz y casa en Parque del Plata |
 | Día 4 | domingo 2 de agosto de 2026 | Casa en Parque del Plata |
 
-No se publican direcciones particulares: las consultas meteorológicas usan centros aproximados de cada localidad.
+La sección Movilidad está cargada solamente para el 25 y 26 de julio. Las jornadas posteriores se consultan mediante los documentos de producción.
 
-### Movilidad del crew
+## Privacidad del sitio público
 
-- Página separada en `movilidad/`.
-- Distribución por día, auto y zona de salida.
-- Identificación clara de quien conduce y de quienes viajan juntos.
-- Nombres de pila o alias en pantalla, con el rol de cada integrante debajo.
-- Día 1: cinco autos.
-- Día 2: cuatro autos.
-- Fondo animado con alternativa estática para dispositivos o preferencias de movimiento reducido.
-- Dieciséis retratos goblin chibi con transparencia real, uno por integrante del crew.
+La repo y GitHub Pages son públicos. Para limitar la exposición de información personal:
 
-Los retratos reemplazan los antiguos círculos de iniciales. Se muestran recortados dentro de avatares circulares, sin modificar la información logística.
+- se muestran nombres de pila o alias, no nombres completos del crew;
+- no se publican domicilios particulares como texto general del sitio;
+- las consultas meteorológicas usan coordenadas aproximadas de localidades o zonas;
+- los documentos externos conservan los permisos definidos en Google Drive;
+- la información de producción debe retirarse o archivarse cuando deje de ser operativamente necesaria.
 
-### Supermercados y farmacias
+El sitio no debe usarse para publicar teléfonos, documentos personales, datos médicos, contraseñas ni información sensible del equipo.
 
-- Comercios cercanos a la zona del segundo fin de semana.
-- Distancias y horarios orientativos.
-- Botones directos a Google Maps.
-- Tabla para escritorio y tarjetas adaptadas a celular.
+## Sistema meteorológico
 
-Los horarios comerciales deben confirmarse antes del rodaje, especialmente de noche, en feriados o fuera de temporada.
-
-## Fuentes meteorológicas
+La página de Clima combina señales distintas sin presentar una fuente aislada como certeza.
 
 | Fuente | Uso dentro del sitio |
 |---|---|
-| [MetSul Meteorologia](https://metsul.com/) | Artículos y contexto meteorológico reciente para Uruguay. |
-| [INUMET](https://www.inumet.gub.uy/) | Pronóstico oficial del Área Metropolitana y advertencias vigentes. |
+| [INUMET](https://www.inumet.gub.uy/) | Pronóstico oficial del Área Metropolitana y advertencias meteorológicas. |
 | [ECMWF](https://www.ecmwf.int/) | Modelo numérico consultado mediante Open-Meteo. |
-| [GFS / NOAA](https://www.ncei.noaa.gov/products/weather-climate-models/global-forecast) | Segundo modelo para comparación y detección de desacuerdos. |
-| [Open-Meteo](https://open-meteo.com/) | Interfaz utilizada para obtener las series horarias de ECMWF y GFS. |
+| [GFS / NOAA](https://www.ncei.noaa.gov/products/weather-climate-models/global-forecast) | Segundo modelo para comparar señales y detectar desacuerdos. |
+| [Open-Meteo](https://open-meteo.com/) | Interfaz para obtener series horarias por coordenadas. |
+| [MetSul Meteorologia](https://metsul.com/) | Contexto meteorológico editorial reciente para Uruguay. |
 
-MetSul e INUMET aportan tipos de información diferentes a los modelos numéricos. El sistema no presenta ninguna fuente aislada como certeza: combina señales y muestra el grado de confianza disponible.
+El flujo actual es:
 
-La implementación y sus límites están explicados en [docs/CLIMA.md](docs/CLIMA.md).
+```text
+Fuentes meteorológicas
+        │
+        ▼
+scripts/update_weather_plan.py
+        │ carga el recolector genérico
+        ▼
+scripts/update_weather.py
+        │
+        ├──> data/weather.json
+        │
+        ▼
+scripts/translate_metsul.py
+        │
+        └──> data/metsul-translations.json
+```
 
-## Actualización automática
+La implementación, los estados de riesgo y los límites del sistema están detallados en [docs/CLIMA.md](docs/CLIMA.md).
+
+## Actualización automática del clima
 
 El workflow `.github/workflows/update-weather.yml` se ejecuta:
 
 - cada hora, alrededor del minuto 17;
 - como refuerzo, alrededor de las 00:43, 06:43, 12:43 y 18:43 de `America/Montevideo`;
-- manualmente desde la pestaña **Actions**;
-- cuando cambia el recolector o el propio workflow.
+- manualmente desde **Actions**;
+- cuando cambian el recolector, el plan meteorológico, la traducción o el workflow.
 
-La tarea ejecuta `scripts/update_weather.py`, consulta las fuentes y actualiza `data/weather.json`. Si el archivo cambia, GitHub Actions crea un commit automático. GitHub puede demorar o descartar alguna ejecución programada, por lo que los cuatro horarios adicionales funcionan como redundancia y no como garantía absoluta de puntualidad.
+El job usa Python 3.12, actualiza `data/weather.json` y mantiene una memoria de traducciones de MetSul en `data/metsul-translations.json`. Cuando los datos cambian, GitHub Actions crea un commit automático.
 
-El botón **Actualizar pronóstico** de la página vuelve a descargar el último `weather.json` publicado sin usar caché. No inicia una nueva recolección. El enlace **Forzar consulta en GitHub** abre el workflow para que una persona autenticada y con permisos pueda usar **Run workflow**.
+El botón de actualización dentro de Clima vuelve a pedir el último JSON publicado sin caché. No inicia por sí solo una nueva consulta a las fuentes.
 
-## Archivos principales
+## Movilidad y avatares
+
+La página de Movilidad organiza el primer fin de semana por:
+
+- día y horario;
+- punto de encuentro o traslado;
+- auto y zona de salida;
+- persona que conduce;
+- pasajeros y rol dentro del equipo.
+
+Los retratos goblin chibi están en `assets/avatars/`, optimizados como WebP con transparencia. Los primeros avatares visibles se cargan con prioridad y el resto utiliza carga diferida.
+
+El fondo animado se descarga después de que la interfaz queda disponible. En conexiones con ahorro de datos o cuando el sistema solicita movimiento reducido, se mantiene el póster estático.
+
+## Apps y MENELAO
+
+Apps reúne enlaces oficiales para:
+
+- HollyView;
+- Sidus Link;
+- DJI Ronin;
+- Sound Devices Wingman;
+- ZOOM Handy Control & Sync;
+- H4essential Control.
+
+La misma sección publica versiones portables de **MENELAO** para Windows y Linux. Los ZIP se sirven directamente desde:
+
+```text
+apps/downloads/
+```
+
+MENELAO es una herramienta independiente para copiar una fuente audiovisual a dos destinos y verificar las tres ubicaciones mediante hashes SHA-256.
+
+Discord se mantiene como sección separada. El botón de ingreso al servidor queda desactivado hasta que producción genere una invitación válida.
+
+## Rendimiento y accesibilidad
+
+El sitio es estático y no depende de un framework. Las principales optimizaciones son:
+
+- fondos principales en WebP;
+- dimensiones explícitas y carga diferida para avatares;
+- video de Movilidad diferido hasta que el navegador queda libre;
+- alternativa estática para ahorro de datos y movimiento reducido;
+- `content-visibility` para bloques fuera de pantalla;
+- efectos de desenfoque reducidos en celular;
+- iconos SVG integrados en el HTML;
+- navegación y estados de foco utilizables con teclado;
+- diseño responsive para celular, tablet y escritorio.
+
+## Estructura principal
 
 ```text
 .
-├── index.html                         # Landing de Jona Logística
-├── clima/index.html                   # Interfaz del pronóstico
-├── movilidad/index.html               # Autos, conductores, pasajeros e iconos
-├── supermercados/index.html           # Comercios y farmacias
-├── 01_maite_pineyrua_segura.png       # Iconos goblin transparentes del crew
-├── ...
-├── 16_carolina_romero.png
-├── jona-movilidad-fondo-mobile.webm   # Fondo animado de Movilidad
-├── jona-movilidad-fondo-mobile.mp4    # Alternativa de video
-├── jona-movilidad-fondo-poster.webp   # Fondo estático / poster
-├── data/weather.json                  # Última actualización meteorológica
-├── scripts/update_weather.py          # Recolector y resumen de fuentes
-├── docs/CLIMA.md                      # Documentación del sistema de clima
-├── .github/workflows/update-weather.yml
+├── index.html                         # Portada y próxima jornada dinámica
+├── home.css                           # Estilos específicos de la portada
+├── site-touchup.css                   # Capa visual compartida
+├── clima/
+│   └── index.html                     # Pronóstico operativo
+├── movilidad/
+│   └── index.html                     # Autos, personas y recorridos
+├── supermercados/
+│   └── index.html                     # Compras y farmacias
+├── docs/
+│   ├── index.html                     # Accesos a documentos de producción
+│   └── CLIMA.md                       # Documentación técnica del clima
+├── links/
+│   └── index.html                     # Redirección histórica hacia Docs
+├── apps/
+│   ├── index.html                     # Apps técnicas y MENELAO
+│   └── downloads/                     # ZIP públicos de MENELAO
+├── discord/
+│   └── index.html                     # Descargas y placeholder de invitación
+├── assets/
+│   └── avatars/                       # Retratos optimizados del crew
+├── data/
+│   ├── weather.json                   # Último pronóstico generado
+│   └── metsul-translations.json       # Memoria de traducciones
+├── scripts/
+│   ├── update_weather.py              # Recolector meteorológico genérico
+│   ├── update_weather_plan.py         # Fechas, bloques y locaciones de Jona
+│   └── translate_metsul.py            # Traducción y caché de MetSul
+├── .github/workflows/
+│   └── update-weather.yml             # Actualización automática
 └── .nojekyll
 ```
 
-Las imágenes y medios de fondo permanecen en la raíz porque GitHub Pages publica el repositorio como sitio estático.
-
 ## Ejecución local
 
-El recolector utiliza solamente la biblioteca estándar de Python 3.12:
-
-```bash
-python scripts/update_weather.py
-```
-
-Para previsualizar el sitio sin problemas de rutas o `fetch`, conviene servir la raíz con un servidor HTTP:
+Para previsualizar el sitio con rutas y solicitudes `fetch` funcionando correctamente:
 
 ```bash
 python -m http.server 8000
 ```
 
-Luego abrir `http://localhost:8000/`.
+Luego abrir:
 
-## Costos
+```text
+http://localhost:8000/
+```
 
-El proyecto está diseñado para funcionar prácticamente gratis con GitHub Pages, GitHub Actions y las fuentes públicas consultadas. Antes de reutilizarlo en un producto comercial o de alto tráfico, corresponde revisar los límites y términos vigentes de cada proveedor.
+Para regenerar el pronóstico con el plan actual de rodaje:
+
+```bash
+python scripts/update_weather_plan.py
+```
+
+La traducción de MetSul utiliza Argos Translate cuando está disponible:
+
+```bash
+python scripts/translate_metsul.py
+```
+
+Antes de publicar cambios meteorológicos, revisar `data/weather.json` y confirmar que `generated_at`, las fechas, las locaciones y los bloques sean correctos.
+
+## Mantenimiento operativo
+
+Antes de cada jornada conviene verificar:
+
+1. la hora de la última actualización del clima;
+2. advertencias vigentes de INUMET;
+3. enlaces de Docs y permisos de Drive;
+4. citaciones y puntos de encuentro;
+5. horarios orientativos de comercios;
+6. que las descargas públicas de MENELAO respondan;
+7. que la invitación de Discord siga vigente una vez creada.
 
 ## Alcance
 
-Esta página es una herramienta logística y no sustituye los avisos oficiales. Ante una advertencia de INUMET o condiciones peligrosas, producción debe seguir la información oficial más reciente y tomar la decisión operativa correspondiente.
+El sitio es una herramienta logística de producción. No sustituye avisos oficiales, decisiones de seguridad, comunicaciones formales de producción ni la información definitiva contenida en las citaciones y planes aprobados.
+
+Ante advertencias meteorológicas o condiciones peligrosas, producción debe utilizar la información oficial más reciente y tomar la decisión operativa correspondiente.
+
+---
+
+Una producción de **Mala Hierba Producciones**.

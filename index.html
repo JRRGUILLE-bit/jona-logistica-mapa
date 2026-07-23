@@ -9,30 +9,30 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
-<meta name="description" content="Centro de producción de Jona tenía 15 años: clima, movilidad, compras, documentos, Discord y aplicaciones de rodaje.">
+<meta name="description" content="Base de operaciones de Jona tenía 15 años: clima, movilidad, compras, documentos, Discord y aplicaciones de rodaje.">
 <link rel="canonical" href="https://jrrguille-bit.github.io/jona-logistica/">
-<meta property="og:title" content="Jona tenía 15 años — Centro de producción">
+<meta property="og:title" content="Jona tenía 15 años — Base de operaciones">
 <meta property="og:description" content="Clima, movilidad, compras, documentos, Discord y aplicaciones para el rodaje de Jona tenía 15 años.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jrrguille-bit.github.io/jona-logistica/">
-<title>Jona tenía 15 años — Centro de producción</title>
+<title>Jona tenía 15 años — Base de operaciones</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="home.css?v=20260723-3">
 <link rel="stylesheet" href="site-touchup.css?v=20260723-2">
 <style>
-.hero>.page-meta{display:flex;align-items:center;justify-content:center;gap:9px;margin:12px 0 0;color:rgba(245,240,232,.58);font-size:10px;font-weight:600;letter-spacing:.055em;line-height:1.45;text-align:center;text-transform:uppercase}.hero>.page-meta:before{content:"";width:7px;height:7px;flex:0 0 auto;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(220,145,64,.09)}.action:nth-child(6){--card-accent:#7889ea}@media(max-width:760px){.hero>.page-meta{font-size:9px}}
+.hero>.page-meta{display:flex;align-items:center;justify-content:center;gap:9px;margin:12px 0 0;color:rgba(245,240,232,.58);font-size:10px;font-weight:600;letter-spacing:.055em;line-height:1.45;text-align:center;text-transform:uppercase}.hero>.page-meta:before{content:"";width:7px;height:7px;flex:0 0 auto;border-radius:50%;background:#67b7e8;box-shadow:0 0 0 4px rgba(103,183,232,.09)}.action:nth-child(6){--card-accent:#7889ea}.brand-enye{position:relative;display:inline-block}.brand-enye:after{content:"˜";position:absolute;left:50%;top:-.28em;transform:translateX(-50%) scaleX(.82);font-family:Inter,system-ui,sans-serif;font-size:.46em;font-weight:700;line-height:1;letter-spacing:0;color:currentColor;text-shadow:none}@media(max-width:760px){.hero>.page-meta{font-size:9px}.brand-enye:after{top:-.25em}}
 </style>
 <link rel="preload" as="image" href="assets/site-bg-1600.webp" fetchpriority="high">
 </head>
 <body>
 <main class="shell">
   <section class="hero" aria-labelledby="page-title">
-    <p class="eyebrow">Centro de producción</p>
-    <h1 class="brand" id="page-title">
-      <span class="brand-main">Jona tenía</span>
-      <span class="brand-emphasis">15 años</span>
+    <p class="eyebrow">Base de operaciones</p>
+    <h1 class="brand" id="page-title" aria-label="Jona tenía 15 años">
+      <span class="brand-main" aria-hidden="true">Jona tenía</span>
+      <span class="brand-emphasis" aria-hidden="true">15 A<span class="brand-enye">N</span>OS</span>
     </h1>
 
     <section class="next-shoot" aria-labelledby="next-shoot-title">
@@ -47,7 +47,7 @@
         <a href="clima/">Ver clima</a>
       </div>
     </section>
-    <p class="page-meta"><span>Actualizado 23/07/2026 · Responsable: Producción</span></p>
+    <p class="page-meta" id="weatherUpdated" aria-live="polite"><span>Última actualización del clima · cargando…</span></p>
 
     <nav class="actions" aria-label="Secciones de producción">
       <a class="action" href="clima/">
@@ -124,9 +124,26 @@
   const title=document.getElementById('nextShootTitle');
   const detail=document.getElementById('nextShootDetail');
   const primary=document.getElementById('nextShootPrimary');
-  if(!title||!detail||!primary)return;
-  if(next){title.textContent=next.title;detail.textContent=next.detail;primary.href=next.href;primary.textContent=next.label;}
-  else{title.textContent='Rodaje finalizado';detail.textContent='Las jornadas previstas ya concluyeron.';primary.href='docs/';primary.textContent='Ver Docs';}
+  if(title&&detail&&primary){
+    if(next){title.textContent=next.title;detail.textContent=next.detail;primary.href=next.href;primary.textContent=next.label;}
+    else{title.textContent='Rodaje finalizado';detail.textContent='Las jornadas previstas ya concluyeron.';primary.href='docs/';primary.textContent='Ver Docs';}
+  }
+
+  const weatherMeta=document.querySelector('#weatherUpdated span');
+  if(weatherMeta){
+    fetch('data/weather.json',{cache:'no-store'})
+      .then(response=>{if(!response.ok)throw new Error('weather');return response.json();})
+      .then(data=>{
+        if(!data.generated_at)throw new Error('weather-date');
+        const formatted=new Intl.DateTimeFormat('es-UY',{
+          timeZone:data.timezone||'America/Montevideo',
+          day:'2-digit',month:'2-digit',year:'numeric',
+          hour:'2-digit',minute:'2-digit',hour12:false
+        }).format(new Date(data.generated_at));
+        weatherMeta.textContent=`Última actualización del clima · ${formatted}`;
+      })
+      .catch(()=>{weatherMeta.textContent='Última actualización del clima · consultar Clima';});
+  }
 })();
 </script>
 </body>

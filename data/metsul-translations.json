@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "engine": "Argos Translate",
+  "source_language": "pt",
+  "target_language": "es",
+  "entries": {
+    "cd00e09a1ec672d5595d55df41177c92d4761226a5529b93314d0d27f082b988": {
+      "title_pt": "Mapa da enchente: onde os rios vão subir e baixar no Rio Grande do Sul",
+      "excerpt_pt": "O Rio Grande do Sul voltou a viver o drama das enchentes, as primeiras do El Niño de 2026, e todas as atenções se voltam para os níveis dos rios em várias regiões do estado. A chuva persiste em parte do estado, mas não trará mudança relevante no cenário dos rios. E qual o cenário? […]",
+      "title_es": "Mapa de la inundación: donde los ríos van a subir y bajar en Río Grande del Sur",
+      "excerpt_es": "El Río Grande del Sur volvió a vivir el drama de las inundaciones, las primeras del El Niño de 2026, y todas las atenciones se vuelven a los niveles de los ríos en varias regiones del estado. La lluvia persiste en parte del estado, pero no traerá un cambio relevante en el escenario de los ríos. ¿Y cuál es el escenario? [...]"
+    },
+    "479ca111f65e5c06224ddc6d2e3c77d1d2bf3dd01e540b465058bc7b37fef7bc": {
+      "title_pt": "Meteorologista Luiz Nachtigall: enchente é só o começo",
+      "excerpt_pt": "Olá amigos e amigas, estamos enfrentando o primeiro episódio de enchente do evento de El Niño de 2026-2027, embora tenha ocorrido pequena cheia do Rio Uruguai já em junho, e infelizmente o que estamos testemunhando nesta quarta-feira no Rio Grande do Sul com rios fora do leito e pessoas deixando suas casas é apenas o […]",
+      "title_es": "Meteorólogo Luiz Nachtigall: enchente es solo el comienzo",
+      "excerpt_es": "Hola amigos y amigas, estamos enfrentando el primer episodio de llenado del evento de El Niño de 2026-2027, aunque haya ocurrido pequeña llena del Río Uruguay ya en junio, y desafortunadamente lo que estamos presenciando este miércoles en Río Grande del Sur con ríos fuera del lecho y personas dejando sus casas es apenas el [...]"
+    },
+    "55dbda34c69f8db2627c0cacb5f097ca6b2e1db963c35a2d608b535465372a2e": {
+      "title_pt": "Rio Grande do Sul teve mais de 400 mil raios em três dias",
+      "excerpt_pt": "O Rio Grande do Sul registrou 436.220 raios em apenas 72 horas entre o domingo (19) e a terça-feira (21), conforme levantamento da MetSul Meteorologia a partir de dados do sensor Geostationary Lightning Mapper (GLM) do satélite GOES-19. A quantidade de raios foi consequência de um período marcado por forte instabilidade atmosférica. Durante os três […]",
+      "title_es": "Rio Grande do Sul tuvo más de 400 mil rayos en tres días",
+      "excerpt_es": "El Río Grande del Sur registró 436.220 rayos en apenas 72 horas entre el domingo (19) y el martes (21), según el levantamiento de la MetSul Meteorología a partir de datos del sensor Geostationary Lightning Mapper (GLM) del satélite GOES-19. La cantidad de rayos fue consecuencia de un período marcado por fuerte inestabilidad atmosférica. Durante los tres [...]"
+    },
+    "1d2e1100206ee7ad6bdf4c93e529c3580d9515739d18ae232e06e15b552f5922": {
+      "title_pt": "Chuva volumosa no Rio Grande do Sul: veja as últimas projeções",
+      "excerpt_pt": "Muita chuva é esperada ainda no Rio Grande do Sul até amanhã com a transformação da frente semi-estacionária em uma frente fria e a atuação de um centro de baixa pressão atmosférica na costa gaúcha. De acordo com a análise da MetSul Meteorologia, os maiores volumes de chuva vão se concentrar na tarde e noite […]",
+      "title_es": "Chuva volumosa en Río Grande del Sur: vea las últimas proyecciones",
+      "excerpt_es": "Se espera mucha lluvia en Río Grande del Sur hasta mañana con la transformación del frente semi-estacionaria en un frente frío y la actuación de un centro de baja presión atmosférica en la costa gaúcha. De acuerdo con el análisis de la MetSul Meteorología, los mayores volúmenes de lluvia se concentrarán en la tarde y noche [...]"
+    },
+    "fb9928283ae34003b9d56e436ebe866d4a25661f9dc1827bd0c3fc4cce327310": {
+      "title_pt": "Alerta: chuva vai seguir forte a intensa em Porto Alegre",
+      "excerpt_pt": "Chove forte em Porto Alegre na manhã desta terça-feira (21) e a MetSul Meteorologia alerta que a chuva não apenas vai continuar com ainda deve ser forte a intensa ainda em diversos momentos no restante desta terça e amanhã (22). A chuva acumulada entre domingo (19) e 9h desta terça somou em alguns bairros de […]",
+      "title_es": "Alerta: La lluvia va a seguir fuerte la intensa en Porto Alegre",
+      "excerpt_es": "Chove fuerte en Porto Alegre en la mañana de este martes (21) y MetSul Meteorología alerta que la lluvia no sólo continuará con aún debe ser fuerte la intensa aún en varios momentos en el resto de este martes y mañana (22). La lluvia acumulada entre domingo (19) y 9h de este martes somó en algunos barrios de [...]"
+    },
+    "a2548c1beb2418b48906b1530e312ddef261c352a790a9355f555acc1e6ebaff": {
+      "title_pt": "Risco alto: novo alerta meteorológico para Porto Alegre",
+      "excerpt_pt": "A MetSul Meteorologia emite um novo alerta para a cidade de Porto Alegre em que adverte para a manutenção das condições de forte a intensa instabilidade com chuva ao menos até a quarta-feira (22). A chuva acumulada entre ontem (19) e o meio da tarde desta segunda-feira (21) somou em alguns bairros de Porto Alegre […]",
+      "title_es": "Riesgo alto: nueva alerta meteorológica para Porto Alegre",
+      "excerpt_es": "La MetSul Meteorología emite una nueva alerta para la ciudad de Porto Alegre en la que advierte para el mantenimiento de las condiciones de fuerte la intensa inestabilidad con lluvia al menos hasta el miércoles (22). La lluvia acumulada entre ayer (19) y el medio de la tarde de este lunes (21) somó en algunos barrios de Porto Alegre [...]"
+    },
+    "5be53043ea8eced13e02fea397ab6be22660ae8162bbe9edfb7cc59f3d142d67": {
+      "title_pt": "Quase 50 cidades gaúchas registram danos por chuva e vento",
+      "excerpt_pt": "Chuva e vento que atingirem o Rio Grande do Sul desde o fim da semana passada deixaram danos e transtornos em 49 municípios, com estragos concentrados principalmente em residências, escolas, prédios públicos, redes de energia elétrica, rodovias e áreas urbanas. O levantamento mais atual da Defesa Civil mostra um cenário de prejuízos espalhados por praticamente […]",
+      "title_es": "Casi 50 ciudades gauchas registran daños por lluvia y viento",
+      "excerpt_es": "Chuva y viento que alcanzan el Río Grande del Sur desde el fin de la semana pasada dejaron daños y trastornos en 49 municipios, con estragos concentrados principalmente en residencias, escuelas, edificios públicos, redes de energía eléctrica, carreteras y áreas urbanas. El levantamiento más actual de la Defensa Civil muestra un escenario de perjuicios dispersos por prácticamente [...]"
+    },
+    "8732653d822ce963841824aed11879315a4a249ed30730b18e358da6fbc2319b": {
+      "title_pt": "Rio Grande do Sul teve mais de 170 mil raios no domingo; veja ranking de cidades",
+      "excerpt_pt": "O Rio Grande do Sul registrou 177.134 descargas atmosféricas em apenas 24 horas durante o domingo, segundo dados do Geostationary Lightning Mapper (GLM) do satélite GOES-19, em levantamento de raios realizado pela MetSul Meteorologia. O levantamento compreende o período entre 0h e 23h59 de 19 de julho e indica que foi muito alta a incidência […]",
+      "title_es": "Rio Grande do Sul tuvo más de 170 mil rayos el domingo; vea ranking de ciudades",
+      "excerpt_es": "El Río Grande del Sur registró 177.134 descargas atmosféricas en apenas 24 horas durante el domingo, según datos del Geostationary Lightning Mapper (GLM) del satélite GOES-19, en levantamiento de rayos realizado por la MetSul Meteorología. El levantamiento comprende el período entre 0h y 23h59 de 19 de julio e indica que fue muy alta la incidencia [...]"
+    },
+    "f037c6a2b4f39dffebeb7e8271609dd8e52fa37f1e3fa7e579dec78b53467aed": {
+      "title_pt": "MetSul reforça alerta de chuva volumosa com risco de cheias de rios",
+      "excerpt_pt": "A MetSul Meteorologia alerta que volumes altos a muito altos de chuva, até localmente excessivos, devem ser esperados até quarta-feira (20) no Rio Grande do Sul com marcas que podem ficar acima de 100 mm em diversas cidades e passar de 200 mm em algumas. No final da semana passada, a chuva se concentrou no […]",
+      "title_es": "MetSul refuerza alerta de lluvia volumosa con riesgo de inundaciones de ríos",
+      "excerpt_es": "La MetSul Meteorología advierte que volúmenes altos a muy altos de lluvia, hasta localmente excesivos, deben ser esperados hasta el miércoles (20) en Río Grande del Sur con marcas que pueden quedar por encima de 100 mm en diversas ciudades y pasar de 200 mm en algunas. Al final de la semana pasada, la lluvia se concentró en el [...]"
+    },
+    "c5dbbffffd0f7ace26d21fe6edfa6cd69efcf221ccb2724d2ca71222c606f537": {
+      "title_pt": "Chuva vai aumentar com risco de alagamentos e inundações",
+      "excerpt_pt": "O fim de semana foi marcado por calor fora do normal, vento Norte perto e acima de 100 km/h e temporais no Rio Grande do Sul com a chuva avançando pelo estado, sobretudo neste domingo, e teve acumulados altos em parte do território gaúcho. O calor foi mais intenso no Litoral Norte pela interação do […]",
+      "title_es": "Chuva aumentará con riesgo de inundaciones y inundaciones",
+      "excerpt_es": "El fin de semana fue marcado por calor fuera del normal, viento Norte cerca y por encima de 100 km/h y temporais en Rio Grande do Sul con la lluvia avanzando por el estado, sobre todo este domingo, y tuvo acumulados altos en parte del territorio gaúcho. El calor fue más intenso en el Litoral Norte por la interacción del [...]"
+    }
+  }
+}

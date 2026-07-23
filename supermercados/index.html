@@ -103,7 +103,7 @@ body:after{
 .hero{
   margin:0 0 18px;
   padding:clamp(28px,5vw,58px);
-  min-height:270px;
+  min-height:220px;
   display:flex;
   align-items:flex-end;
   border:1px solid var(--line);
@@ -372,7 +372,7 @@ footer{
   body:after{background:linear-gradient(180deg,rgba(4,25,43,.46),rgba(3,14,28,.86))}
   .home-link{position:relative;top:auto;left:auto;margin:12px 12px 0}
   .page{padding:12px}
-  .hero{min-height:235px;padding:28px 20px;border-radius:12px}
+  .hero{min-height:190px;padding:28px 20px;border-radius:12px}
   h1{font-size:clamp(42px,13vw,62px)}
   .hero p{font-size:14px}
   .quick{grid-template-columns:1fr}
@@ -390,34 +390,33 @@ footer{
 </style>
 </head>
 <body>
-<a class="home-link" href="../" aria-label="Volver a Jona Logística"><span aria-hidden="true">←</span> Jona Logística</a>
+<a class="home-link" href="../" aria-label="Volver al inicio"><span aria-hidden="true">←</span> Inicio</a>
 <div class="page">
 <header class="hero">
   <div class="hero-copy">
-    <div class="label">Segundo fin de semana · Parque del Plata</div>
+    <div class="label">Parque del Plata</div>
     <h1>Supermercados y farmacias</h1>
-    <p>Compras, urgencias y opciones cercanas a la casa de producción. Consultá horarios, distancias y abrí cada lugar directamente en Maps.</p>
   </div>
 </header>
 <section id="quick" class="quick"></section>
 <nav class="tabs"><button class="tab active" data-filter="Todos">Todo</button><button class="tab" data-filter="Supermercado">Supermercados</button><button class="tab" data-filter="Almacén">Almacenes</button><button class="tab" data-filter="Farmacia">Farmacias</button></nav>
-<main class="panel"><div class="panel-head"><div><h2>Opciones cercanas</h2><p>Horario, distancia aproximada y si conviene ir caminando, en bici o en auto.</p></div><a class="csv-link" href="../jona_supermercados_simple_distancia_horario.csv">Descargar CSV</a></div><div class="table-wrap"><table><thead><tr><th>Lugar</th><th>Horario</th><th>Distancia aprox.</th><th>Conviene ir</th><th>Maps</th></tr></thead><tbody id="rows"></tbody></table></div><div id="cards" class="cards"></div></main>
-<footer>Distancias estimadas desde la zona de referencia. Confirmar horarios por teléfono o Google Maps antes del rodaje, especialmente fuera de temporada, de noche o en feriados.</footer>
+<main class="panel"><div class="panel-head"><div><h2>Lugares</h2></div><a class="csv-link" href="../jona_supermercados_simple_distancia_horario.csv">Descargar CSV</a></div><div class="table-wrap"><table><thead><tr><th>Lugar</th><th>Horario</th><th>Distancia aprox.</th><th>Conviene ir</th><th>Maps</th></tr></thead><tbody id="rows"></tbody></table></div><div id="cards" class="cards"></div></main>
+<footer>Confirmar horarios antes de salir.</footer>
 </div>
 <script>
 const lugares=[
 {tipo:'Supermercado',nombre:'Super Parque del Plata',direccion:'Av. Mario Ferreira entre calles 9 y 10, Parque del Plata',horario:'Todos los días 8:00–21:30',distancia:'≈ 0,9 km',modo:'Caminando / bici',query:'Super Parque del Plata Mario Ferreira entre 9 y 10 Parque del Plata'},
 {tipo:'Supermercado',nombre:'Super Rodi',direccion:'Calle 9 entre B y C, Parque del Plata',horario:'Todos los días 8:00–22:00 aprox.',distancia:'≈ 1,0–1,2 km',modo:'Caminando sin carga / bici',query:'Super Rodi Calle 9 entre B y C Parque del Plata'},
-{tipo:'Supermercado',nombre:'Red Expres / La Cueva',direccion:'Parque del Plata — dirección exacta a confirmar en Maps',horario:'Horario a confirmar',distancia:'≈ 1,0–1,5 km',modo:'Caminando sin carga / bici',query:'Red Expres La Cueva Parque del Plata'},
+{tipo:'Supermercado',nombre:'Red Expres / La Cueva',direccion:'Parque del Plata',horario:'Horario a confirmar',distancia:'≈ 1,0–1,5 km',modo:'Caminando sin carga / bici',query:'Red Expres La Cueva Parque del Plata'},
 {tipo:'Carnicería',nombre:'Carnicería Punto Criollo',direccion:'Av. Mario Ferreira esq. Calle 10, Parque del Plata',horario:'Horario a confirmar',distancia:'≈ 1,0 km',modo:'Caminando / bici',query:'Carniceria Punto Criollo Mario Ferreira esquina Calle 10 Parque del Plata'},
-{tipo:'Almacén',nombre:'Almacén 24 horas',direccion:'C. Auxiliar / zona Calle 12, Parque del Plata',horario:'Horario extendido / 24 h según Maps-Waze; confirmar',distancia:'≈ 1,6–2,0 km',modo:'Bici / auto',query:'Almacen 24 horas Calle Auxiliar Calle 12 Parque del Plata'},
+{tipo:'Almacén',nombre:'Almacén 24 horas',direccion:'C. Auxiliar / zona Calle 12, Parque del Plata',horario:'Posible 24 h · confirmar',distancia:'≈ 1,6–2,0 km',modo:'Bici / auto',query:'Almacen 24 horas Calle Auxiliar Calle 12 Parque del Plata'},
 {tipo:'Supermercado',nombre:'Super Parada 20',direccion:'Ruta Interbalnearia esq. Calle 20, Parque del Plata',horario:'8:30–22:00; miércoles cerrado',distancia:'≈ 2,5–3,0 km',modo:'Auto',query:'Super Parada 20 Ruta Interbalnearia esquina Calle 20 Parque del Plata'},
-{tipo:'Supermercado',nombre:'Expres La Floresta',direccion:'La Floresta — dirección exacta a confirmar en Maps',horario:'Horario a confirmar',distancia:'≈ 4,5–5,5 km',modo:'Auto',query:'Expres La Floresta supermercado'},
-{tipo:'Supermercado',nombre:'Supermercado Bachino',direccion:'La Floresta — visto en Maps, validar horario',horario:'Horario a confirmar',distancia:'≈ 4,5–5,5 km',modo:'Auto',query:'Supermercado Bachino La Floresta'},
-{tipo:'Farmacia',nombre:'Farmacias en Parque del Plata',direccion:'Búsqueda viva en Google Maps: farmacias cerca de Parque del Plata',horario:'Confirmar en Maps',distancia:'zona cercana',modo:'Caminando / bici / auto según resultado',query:'farmacias cerca de Parque del Plata Canelones'},
-{tipo:'Farmacia',nombre:'Farmacias cerca de la comisaría',direccion:'Búsqueda viva en Google Maps: farmacias cerca de Comisaría Parque del Plata',horario:'Confirmar en Maps',distancia:'zona de referencia',modo:'Caminando / bici / auto según resultado',query:'farmacias cerca de Comisaria Parque del Plata'},
-{tipo:'Farmacia',nombre:'Farmacias de turno / guardia',direccion:'Búsqueda viva para urgencias: farmacia de turno Parque del Plata',horario:'Confirmar antes de salir',distancia:'variable',modo:'Auto recomendado',query:'farmacia de turno Parque del Plata Canelones'},
-{tipo:'Farmacia',nombre:'Farmacias Atlántida / Las Toscas',direccion:'Búsqueda viva ampliada para conseguir opción abierta cerca',horario:'Confirmar en Maps',distancia:'≈ 4–8 km según resultado',modo:'Auto',query:'farmacias Atlantida Las Toscas Parque del Plata'}
+{tipo:'Supermercado',nombre:'Expres La Floresta',direccion:'La Floresta',horario:'Horario a confirmar',distancia:'≈ 4,5–5,5 km',modo:'Auto',query:'Expres La Floresta supermercado'},
+{tipo:'Supermercado',nombre:'Supermercado Bachino',direccion:'La Floresta',horario:'Horario a confirmar',distancia:'≈ 4,5–5,5 km',modo:'Auto',query:'Supermercado Bachino La Floresta'},
+{tipo:'Farmacia',nombre:'Farmacias en Parque del Plata',direccion:'Parque del Plata',horario:'Confirmar en Maps',distancia:'zona cercana',modo:'Caminando / bici / auto según resultado',query:'farmacias cerca de Parque del Plata Canelones'},
+{tipo:'Farmacia',nombre:'Farmacias cerca de la comisaría',direccion:'Zona de la comisaría',horario:'Confirmar en Maps',distancia:'zona de referencia',modo:'Caminando / bici / auto según resultado',query:'farmacias cerca de Comisaria Parque del Plata'},
+{tipo:'Farmacia',nombre:'Farmacias de turno / guardia',direccion:'Parque del Plata',horario:'Confirmar antes de salir',distancia:'variable',modo:'Auto recomendado',query:'farmacia de turno Parque del Plata Canelones'},
+{tipo:'Farmacia',nombre:'Farmacias Atlántida / Las Toscas',direccion:'Atlántida / Las Toscas',horario:'Confirmar en Maps',distancia:'≈ 4–8 km según resultado',modo:'Auto',query:'farmacias Atlantida Las Toscas Parque del Plata'}
 ];
 const maps=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
 const quick=[['Más cerca',lugares[0],lugares[0].distancia],['Compra grande',lugares[5],lugares[5].modo],['Farmacias',lugares[8],'búsqueda en Maps'],['Guardia',lugares[10],'confirmar antes de salir']];

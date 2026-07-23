@@ -364,20 +364,18 @@ footer a{color:var(--accent);text-decoration:none}
 </style>
 </head>
 <body>
-<a class="home-link" href="../" aria-label="Volver a Jona Logística"><span aria-hidden="true">←</span> Jona Logística</a>
+<a class="home-link" href="../" aria-label="Volver al inicio"><span aria-hidden="true">←</span> Inicio</a>
 <main class="page">
   <header class="hero">
     <div class="hero-top">
       <div class="hero-copy">
         <p class="eyebrow">Producción Jona</p>
         <h1>Clima de rodaje</h1>
-        <p>MetSul, INUMET y modelos numéricos comparados según cada día, locación y bloque horario del plan de rodaje.</p>
       </div>
       <div class="update-panel">
         <div class="updated">Última consulta<strong id="updatedAt">Cargando…</strong></div>
         <div class="update-actions">
-          <button id="refreshWeather" class="update-button" type="button"><span class="refresh-icon" aria-hidden="true">↻</span>Actualizar pronóstico</button>
-          <a class="update-link" href="https://github.com/JRRGUILLE-bit/jona-logistica-mapa/actions/workflows/update-weather.yml" target="_blank" rel="noopener">Forzar consulta en GitHub</a>
+          <button id="refreshWeather" class="update-button" type="button"><span class="refresh-icon" aria-hidden="true">↻</span>Actualizar</button>
         </div>
         <p id="refreshStatus" class="refresh-status" aria-live="polite"></p>
       </div>
@@ -395,12 +393,11 @@ footer a{color:var(--accent);text-decoration:none}
 
   <section class="metsul-panel" aria-labelledby="metsul-title">
     <h2 id="metsul-title">Últimos análisis de MetSul</h2>
-    <p>Artículos humanos recientes relacionados con Uruguay. Si no existe uno específico para una fecha, la página lo indica sin atribuirle a MetSul una conclusión automática.</p>
     <div id="articles" class="articles"><div class="loading">Buscando publicaciones…</div></div>
   </section>
 
   <footer>
-    INUMET es la fuente oficial de advertencias en Uruguay. Los cálculos horarios se basan en ECMWF IFS y NOAA GFS, servidos mediante <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>. Las tendencias de largo plazo pueden cambiar; confirmar siempre antes de mover un rodaje.
+    Alertas oficiales: INUMET.
   </footer>
 </main>
 <script>
@@ -437,7 +434,7 @@ function renderSources(data){
     ? `Pronóstico oficial actualizado ${escapeHtml(displayDate(inumet.updated_at))}.`
     : 'Pronóstico oficial temporalmente no disponible.';
   const modelNames=(models.models||[]).map(model=>model.name).join(' + ')||'ECMWF + GFS';
-  const modelBody=`Detalle horario con ${escapeHtml(modelNames)}. Estado: ${escapeHtml(models.status||'sin datos')}.`;
+  const modelBody=escapeHtml(modelNames);
   document.getElementById('sourceGrid').innerHTML=[
     sourceCard('MetSul',metsul.status,metsulBody),
     sourceCard('INUMET',inumet.status,inumetBody),
@@ -472,7 +469,7 @@ function renderModelRows(models){
 
 function renderInumet(day){
   if(!day.inumet){
-    return `<div class="source-note"><h3>INUMET oficial</h3><p>El pronóstico oficial todavía no alcanza esta fecha. INUMET se incorporará automáticamente cuando entre en su ventana de tres días.</p></div>`;
+    return `<div class="source-note"><h3>INUMET</h3><p>Aún sin datos oficiales.</p></div>`;
   }
   const periods=(day.inumet.periods||[]).map(period=>`<li><strong>${escapeHtml(period.period)}:</strong> ${escapeHtml(period.description)} ${escapeHtml(period.wind)}</li>`).join('');
   return `<div class="source-note"><h3>INUMET oficial</h3><p>${numberOrDash(day.inumet.temperature_min,'°')}–${numberOrDash(day.inumet.temperature_max,'°')}</p><ul>${periods}</ul></div>`;
@@ -481,10 +478,10 @@ function renderInumet(day){
 function renderMetsul(day){
   const articles=day.metsul_articles||[];
   if(!articles.length){
-    return `<div class="source-note"><h3>MetSul</h3><p>No se detectó todavía un análisis de MetSul que mencione específicamente esta fecha. <a href="https://metsul.com/categoria/uruguai/" target="_blank" rel="noopener">Ver Uruguay en MetSul</a>.</p></div>`;
+    return `<div class="source-note"><h3>MetSul</h3><p>Sin análisis específico. <a href="https://metsul.com/categoria/uruguai/" target="_blank" rel="noopener">Abrir MetSul</a>.</p></div>`;
   }
   const links=articles.map(article=>`<li><a href="${escapeHtml(article.url)}" target="_blank" rel="noopener">${escapeHtml(article.title)}</a></li>`).join('');
-  return `<div class="source-note"><h3>MetSul</h3><p>Análisis detectados para esta fecha:</p><ul>${links}</ul></div>`;
+  return `<div class="source-note"><h3>MetSul</h3><ul>${links}</ul></div>`;
 }
 
 function renderBlock(block){

@@ -1,6 +1,6 @@
-# Sistema de clima de Jona Logística
+# Sistema de clima — Jona tenía 15 años
 
-Esta documentación explica de dónde sale la información, cómo se transforma y qué significa cada estado mostrado en la página de clima.
+Esta documentación explica de dónde sale la información meteorológica, cómo se transforma y qué significa cada estado mostrado en la base de operaciones.
 
 ## Objetivo
 
@@ -11,23 +11,34 @@ Dar a producción una lectura rápida por jornada y, al mismo tiempo, permitir a
 3. ¿Los modelos coinciden?
 4. ¿La fecha está lo bastante cerca como para confiar en el detalle?
 
+La hora de generación incluida en `data/weather.json` también se muestra en la portada como **Última actualización del clima**.
+
 ## Flujo de datos
 
 ```text
-MetSul ───────────────┐
-INUMET ───────────────┼─> scripts/update_weather.py ─> data/weather.json ─> clima/index.html
-ECMWF y GFS ──────────┘
+INUMET ───────────────────────┐
+ECMWF y GFS vía Open-Meteo ───┼─> scripts/update_weather_plan.py
+MetSul ───────────────────────┘              │
+                                             ▼
+                                  scripts/update_weather.py
+                                             │
+                                             └─> data/weather.json
+                                                        │
+                                                        ▼
+                                             scripts/translate_metsul.py
+                                                        │
+                                                        └─> data/metsul-translations.json
 ```
 
-GitHub Actions intenta repetir este proceso una vez por hora y cuenta con cuatro ejecuciones diarias adicionales de refuerzo. La página es estática: el navegador no consulta directamente a los proveedores, sino que lee el último `weather.json` generado. Esto mejora la velocidad, evita múltiples consultas por visitante y permite conservar el último resultado si una fuente falla temporalmente.
+`update_weather_plan.py` contiene el plan específico de Jona: fechas, bloques, locaciones aproximadas y sensibilidades de cada escena. Ese script carga el recolector genérico `update_weather.py`, reemplaza su configuración y genera el JSON operativo.
 
-El botón **Actualizar pronóstico** vuelve a descargar ese archivo sin caché. El enlace **Forzar consulta en GitHub** abre el workflow; iniciar una nueva recolección requiere estar autenticado y tener permisos sobre el repositorio.
+`translate_metsul.py` se ejecuta después del recolector. Traduce al español titulares y extractos de MetSul, conserva el portugués original como respaldo y guarda una memoria de traducción para evitar trabajo repetido.
+
+La página es estática: el navegador no consulta directamente a los proveedores, sino que lee el último `weather.json` publicado. Esto mejora la velocidad, evita múltiples consultas por visitante y permite conservar el último resultado cuando una fuente falla temporalmente.
+
+El botón **Actualizar pronóstico** vuelve a descargar el JSON sin caché. El enlace **Forzar consulta en GitHub** abre el workflow; iniciar una nueva recolección requiere estar autenticado y tener permisos sobre la repo.
 
 ## Fuentes
-
-### MetSul
-
-Se consultan publicaciones recientes relacionadas con Uruguay. MetSul funciona como contexto meteorológico editorial: sus artículos pueden advertir sobre sistemas regionales relevantes, pero no se convierten artificialmente en valores horarios para una localidad.
 
 ### INUMET
 
@@ -45,6 +56,12 @@ Las series horarias de ambos modelos se obtienen mediante Open-Meteo para puntos
 - Parque del Plata.
 
 Las variables utilizadas son temperatura, sensación térmica, probabilidad y cantidad de precipitación, nubosidad, viento y ráfagas.
+
+### MetSul
+
+Se consultan publicaciones recientes relacionadas con Uruguay. MetSul funciona como contexto meteorológico editorial: sus artículos pueden advertir sobre sistemas regionales relevantes, pero no se convierten artificialmente en valores horarios para una localidad.
+
+La traducción automática no reemplaza el texto original. Cuando el motor de traducción no está disponible o falla, la interfaz conserva el portugués como alternativa.
 
 ## Resúmenes
 
@@ -70,43 +87,82 @@ La confianza baja cuando:
 
 Aunque aparezca una confianza alta, el pronóstico puede cambiar. Para decisiones críticas deben revisarse también las actualizaciones y advertencias oficiales.
 
-## Actualización y tolerancia a fallos
+## Actualización automática
 
-El workflow está definido en `.github/workflows/update-weather.yml` y está configurado para correr alrededor del minuto 17 de cada hora. Como redundancia, también intenta ejecutarse a las 00:43, 06:43, 12:43 y 18:43 en la zona `America/Montevideo`, además de admitir ejecución manual.
+El workflow está definido en `.github/workflows/update-weather.yml` y ejecuta:
+
+```text
+python scripts/update_weather_plan.py
+python scripts/translate_metsul.py
+```
+
+Está configurado para correr:
+
+- alrededor del minuto 17 de cada hora;
+- como redundancia, alrededor de las 00:43, 06:43, 12:43 y 18:43 en `America/Montevideo`;
+- manualmente mediante `workflow_dispatch`;
+- cuando cambian el recolector, el plan meteorológico, la traducción o el propio workflow.
+
+El job utiliza Python 3.12. Argos Translate se instala con tolerancia a fallos: si el motor no puede instalarse, el sistema meteorológico sigue siendo utilizable y mantiene el texto original de MetSul.
+
+Cuando cambian `data/weather.json` o `data/metsul-translations.json`, GitHub Actions crea un commit automático y hace `push` a `main`.
 
 GitHub Actions puede demorar o descartar una ejecución programada. Los horarios de refuerzo reducen la posibilidad de pasar muchas horas sin datos nuevos, pero no constituyen una garantía absoluta.
+
+## Tolerancia a fallos
 
 Si una fuente no responde:
 
 - las demás fuentes continúan procesándose;
 - el error queda registrado en el JSON;
 - cuando existe información anterior reutilizable, el recolector intenta conservarla;
-- la interfaz identifica datos no disponibles en vez de rellenarlos con valores inventados.
+- la interfaz identifica datos no disponibles en vez de rellenarlos con valores inventados;
+- el sitio conserva el último archivo publicado hasta que una nueva ejecución válida lo reemplace.
 
 ## Cambiar jornadas o localidades
 
-Las fechas, bloques y puntos geográficos están declarados al comienzo de `scripts/update_weather.py`:
+La configuración específica del rodaje está en `scripts/update_weather_plan.py`:
 
-- `WEEKENDS` define los dos fines de semana;
-- `SHOOT_DAYS` define cada jornada y sus bloques horarios;
-- `LOCATIONS` contiene las coordenadas aproximadas usadas por los modelos.
+- `collector.LOCATIONS` contiene las coordenadas aproximadas utilizadas por los modelos;
+- `collector.SHOOT_DAYS` define cada jornada y sus bloques horarios;
+- `collector.WEEKENDS` define los grupos de fechas mostrados por la interfaz.
+
+El comportamiento general del recolector permanece en `scripts/update_weather.py`.
 
 Después de modificar la configuración, ejecutar:
 
 ```bash
-python scripts/update_weather.py
+python scripts/update_weather_plan.py
 ```
 
-Hay que revisar `data/weather.json` antes de publicar. No deben cargarse direcciones particulares: alcanza con una coordenada representativa de la localidad o zona de trabajo.
+Luego revisar `data/weather.json` antes de publicar. No deben cargarse domicilios particulares: alcanza con una coordenada representativa de la localidad o zona de trabajo.
+
+## Traducciones de MetSul
+
+La memoria de traducción se guarda en:
+
+```text
+data/metsul-translations.json
+```
+
+El script intenta usar traducción directa de portugués a español. Cuando esa combinación no está disponible, puede utilizar inglés como idioma intermedio. La caché tiene un límite para evitar crecimiento indefinido.
+
+Para ejecutarlo localmente:
+
+```bash
+python -m pip install argostranslate==1.11.0
+python scripts/translate_metsul.py
+```
 
 ## Verificación operativa
 
 Antes de cada jornada conviene comprobar:
 
-1. la hora de la última actualización mostrada en la página;
+1. la hora de la última actualización mostrada en la portada y en Clima;
 2. si INUMET tiene una advertencia activa;
 3. si ECMWF y GFS coinciden;
 4. el detalle del bloque exterior concreto;
-5. el radar y la observación más cercana el mismo día.
+5. el radar y la observación más cercana el mismo día;
+6. que el plan de horarios y locaciones configurado siga coincidiendo con producción.
 
 La decisión final de rodaje debe basarse en el estado más reciente, no solamente en una captura o lectura realizada varios días antes.

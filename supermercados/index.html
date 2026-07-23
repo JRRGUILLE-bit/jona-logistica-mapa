@@ -4,15 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#07151d">
+<meta name="color-scheme" content="dark">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Jona Ops">
+<meta name="format-detection" content="telephone=no">
 <link rel="icon" href="../favicon.svg?v=3" type="image/svg+xml" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../android-chrome-192x192.png">
 <meta name="description" content="Supermercados, farmacias y comercios útiles cerca de la zona de producción de Jona.">
 <link rel="canonical" href="https://jrrguille-bit.github.io/jona-logistica/supermercados/">
 <meta property="og:title" content="Supermercados y farmacias — Jona Logística">
 <meta property="og:description" content="Acceso rápido a comercios útiles para el rodaje en Parque del Plata.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jrrguille-bit.github.io/jona-logistica/supermercados/">
+<meta property="og:image" content="https://jrrguille-bit.github.io/jona-logistica/social-preview-jona-1200x630.jpg">
+<meta property="og:image:secure_url" content="https://jrrguille-bit.github.io/jona-logistica/social-preview-jona-1200x630.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Supermercados y farmacias — Jona Logística">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Supermercados y farmacias — Jona Logística">
+<meta name="twitter:description" content="Supermercados, farmacias y comercios útiles cerca de la zona de producción de Jona.">
+<meta name="twitter:image" content="https://jrrguille-bit.github.io/jona-logistica/social-preview-jona-1200x630.jpg">
+<meta name="twitter:image:alt" content="Supermercados y farmacias — Jona Logística">
 <title>Supermercados y farmacias — Jona Logística</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,17 +46,19 @@ a{color:inherit}.page{position:relative;z-index:1;width:min(1160px,100%);margin:
 .page-meta{display:flex;align-items:center;justify-content:center;gap:9px;margin:22px 4px 0;color:rgba(245,240,232,.58);font-size:10px;font-weight:600;letter-spacing:.055em;text-align:center;text-transform:uppercase}.page-meta:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(220,145,64,.09)}footer{margin:14px 0 0;padding:10px 4px 0;color:rgba(217,225,224,.65);font-size:12px;line-height:1.55;text-align:center}
 @media(max-width:920px){.quick{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:760px){body:before{background-position:center top;filter:saturate(.58) hue-rotate(92deg) contrast(1.03) brightness(.58)}.home-link{position:relative;top:auto;left:auto;margin:12px 12px 0}.page{padding:12px}.hero{min-height:190px;padding:28px 20px}.quick{grid-template-columns:1fr}.panel-head{display:block;padding:20px}.csv-link{display:inline-block;margin-top:14px}.table-wrap{display:none}.cards{display:grid}}
 </style>
+<link rel="manifest" href="../manifest.webmanifest">
+<script defer src="../offline.js?v=3"></script>
 </head>
 <body>
 <a class="home-link" href="../" aria-label="Volver al inicio"><span class="home-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"></path><path d="M8 12h10"></path></svg></span><span>Inicio</span></a>
-<div class="page">
+<main id="main-content" class="page">
 <header class="hero"><div><div class="label">Parque del Plata</div><h1>Supermercados y farmacias</h1></div></header>
 <section id="quick" class="quick"></section>
-<nav class="tabs"><button class="tab active" data-filter="Todos">Todo</button><button class="tab" data-filter="Supermercado">Supermercados</button><button class="tab" data-filter="Almacén">Almacenes</button><button class="tab" data-filter="Farmacia">Farmacias</button></nav>
-<main class="panel"><div class="panel-head"><h2>Lugares</h2><a class="csv-link" href="../jona_supermercados_simple_distancia_horario.csv">Descargar CSV</a></div><div class="table-wrap"><table><thead><tr><th>Lugar</th><th>Horario</th><th>Distancia aprox.</th><th>Conviene ir</th><th>Maps</th></tr></thead><tbody id="rows"></tbody></table></div><div id="cards" class="cards"></div></main>
+<nav class="tabs" role="tablist" aria-label="Filtrar lugares"><button type="button" class="tab active" role="tab" aria-selected="true" data-filter="Todos">Todo</button><button type="button" class="tab" role="tab" aria-selected="false" data-filter="Supermercado">Supermercados</button><button type="button" class="tab" role="tab" aria-selected="false" data-filter="Almacén">Almacenes</button><button type="button" class="tab" role="tab" aria-selected="false" data-filter="Farmacia">Farmacias</button></nav>
+<section class="panel"><div class="panel-head"><h2>Lugares</h2><a class="csv-link" href="../jona_supermercados_simple_distancia_horario.csv">Descargar CSV</a></div><div class="table-wrap"><table><thead><tr><th>Lugar</th><th>Horario</th><th>Distancia aprox.</th><th>Conviene ir</th><th>Maps</th></tr></thead><tbody id="rows"></tbody></table></div><div id="cards" class="cards"></div></section>
 <p class="page-meta"><span>Actualizado 23/07/2026 · Responsable: Producción</span></p>
 <footer>Confirmar horarios antes de salir.</footer>
-</div>
+</main>
 <script>
 const lugares=[
 {tipo:'Supermercado',nombre:'Super Parque del Plata',direccion:'Av. Mario Ferreira entre calles 9 y 10, Parque del Plata',horario:'Todos los días 8:00–21:30',distancia:'≈ 0,9 km',modo:'Caminando / bici',query:'Super Parque del Plata Mario Ferreira entre 9 y 10 Parque del Plata'},
@@ -57,11 +77,11 @@ const lugares=[
 const maps=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
 const quick=[['Más cerca',lugares[0],lugares[0].distancia],['Compra grande',lugares[5],lugares[5].modo],['Farmacias',lugares[8],'búsqueda en Maps'],['Guardia',lugares[10],'confirmar antes de salir']];
 function list(filter){if(filter==='Todos')return lugares;if(filter==='Supermercado')return lugares.filter(l=>['Supermercado','Carnicería'].includes(l.tipo));return lugares.filter(l=>l.tipo===filter)}
-function row(l){return `<tr><td class="name"><span class="kind">${l.tipo}</span><br>${l.nombre}<div class="addr">${l.direccion}</div></td><td>${l.horario}</td><td class="dist">${l.distancia}</td><td><span class="mode">${l.modo}</span></td><td><a class="btn" href="${maps(l.query)}" target="_blank" rel="noopener">Abrir Maps</a></td></tr>`}
-function card(l){return `<article class="place-card"><span class="kind">${l.tipo}</span><h3>${l.nombre}</h3><div class="addr">${l.direccion}</div><div class="facts"><div class="fact"><b>Horario</b><span>${l.horario}</span></div><div class="fact"><b>Distancia</b><span>${l.distancia}</span></div><div class="fact"><b>Conviene</b><span>${l.modo}</span></div></div><a class="btn" href="${maps(l.query)}" target="_blank" rel="noopener">Abrir Maps</a></article>`}
+function row(l){return `<tr><td class="name"><span class="kind">${l.tipo}</span><br>${l.nombre}<div class="addr">${l.direccion}</div></td><td>${l.horario}</td><td class="dist">${l.distancia}</td><td><span class="mode">${l.modo}</span></td><td><a class="btn" href="${maps(l.query)}" target="_blank" rel="noopener noreferrer">Abrir Maps</a></td></tr>`}
+function card(l){return `<article class="place-card"><span class="kind">${l.tipo}</span><h3>${l.nombre}</h3><div class="addr">${l.direccion}</div><div class="facts"><div class="fact"><b>Horario</b><span>${l.horario}</span></div><div class="fact"><b>Distancia</b><span>${l.distancia}</span></div><div class="fact"><b>Conviene</b><span>${l.modo}</span></div></div><a class="btn" href="${maps(l.query)}" target="_blank" rel="noopener noreferrer">Abrir Maps</a></article>`}
 function render(filter='Todos'){const data=list(filter);document.getElementById('rows').innerHTML=data.map(row).join('');document.getElementById('cards').innerHTML=data.map(card).join('')}
-document.getElementById('quick').innerHTML=quick.map(([t,l,n])=>`<a class="quick-card" href="${maps(l.query)}" target="_blank" rel="noopener"><strong>${t}</strong><span>${l.nombre} · ${n}</span><small>Abrir Maps</small></a>`).join('');
-document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render(btn.dataset.filter)}));render();
+document.getElementById('quick').innerHTML=quick.map(([t,l,n])=>`<a class="quick-card" href="${maps(l.query)}" target="_blank" rel="noopener noreferrer"><strong>${t}</strong><span>${l.nombre} · ${n}</span><small>Abrir Maps</small></a>`).join('');
+document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected','false')});btn.classList.add('active');btn.setAttribute('aria-selected','true');render(btn.dataset.filter)}));render();
 </script>
 </body>
 </html>

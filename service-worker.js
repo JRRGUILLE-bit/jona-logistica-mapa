@@ -7,7 +7,7 @@ const CORE_PATHS = [
   './',
   './index.html',
   './manifest.webmanifest',
-  './offline.js?v=2',
+  './offline.js?v=3',
   './home.css?v=20260723-3',
   './site-touchup.css?v=20260723-1',
   './site-touchup.css?v=20260723-2',

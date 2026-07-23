@@ -4,12 +4,34 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#061827">
+<meta name="color-scheme" content="dark">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Jona Ops">
+<meta name="format-detection" content="telephone=no">
 <link rel="icon" href="../favicon.svg?v=3" type="image/svg+xml" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="../android-chrome-192x192.png">
-<meta name="description" content="Pronóstico del rodaje de Jona por jornada y bloque horario, con MetSul, INUMET y comparación de los modelos ECMWF y GFS.">\n<link rel="canonical" href="https://jrrguille-bit.github.io/jona-logistica/clima/">\n<meta property="og:title" content="Clima de rodaje — Jona Logística">\n<meta property="og:description" content="Pronóstico multi-fuente para las cuatro jornadas de rodaje de Jona.">\n<meta property="og:type" content="website">\n<meta property="og:url" content="https://jrrguille-bit.github.io/jona-logistica/clima/">
+<meta name="description" content="Pronóstico del rodaje de Jona por jornada y bloque horario, con MetSul, INUMET y comparación de los modelos ECMWF y GFS.">
+<link rel="canonical" href="https://jrrguille-bit.github.io/jona-logistica/clima/">
+<meta property="og:title" content="Clima de rodaje — Jona Logística">
+<meta property="og:description" content="Pronóstico multi-fuente para las cuatro jornadas de rodaje de Jona.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jrrguille-bit.github.io/jona-logistica/clima/">
+<meta property="og:image" content="https://jrrguille-bit.github.io/jona-logistica/social-preview-jona-1200x630.jpg">
+<meta property="og:image:secure_url" content="https://jrrguille-bit.github.io/jona-logistica/social-preview-jona-1200x630.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Clima de rodaje — Jona Logística">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Clima de rodaje — Jona Logística">
+<meta name="twitter:description" content="Pronóstico del rodaje de Jona por jornada y bloque horario, con MetSul, INUMET y comparación de los modelos ECMWF y GFS.">
+<meta name="twitter:image" content="https://jrrguille-bit.github.io/jona-logistica/social-preview-jona-1200x630.jpg">
+<meta name="twitter:image:alt" content="Clima de rodaje — Jona Logística">
 <title>Clima de rodaje — Jona Logística</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -364,10 +386,12 @@ footer a{color:var(--accent);text-decoration:none}
 </style>
 <link rel="stylesheet" href="../site-touchup.css?v=20260723-1">
 <link rel="preload" as="image" href="../assets/weather-bg-1600.webp" fetchpriority="high">
+<link rel="manifest" href="../manifest.webmanifest">
+<script defer src="../offline.js?v=3"></script>
 </head>
 <body>
 <a class="home-link" href="../" aria-label="Volver al inicio"><span class="home-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"></path><path d="M8 12h10"></path></svg></span><span>Inicio</span></a>
-<main class="page">
+<main id="main-content" class="page">
   <header class="hero">
     <div class="hero-top">
       <div class="hero-copy">
@@ -430,7 +454,7 @@ function renderSources(data){
   const models=data.sources?.models||{};
   const latest=metsul.articles?.[0];
   const metsulBody=latest
-    ? `<a href="${escapeHtml(latest.url)}" target="_blank" rel="noopener">${escapeHtml(latest.title)}</a>`
+    ? `<a href="${escapeHtml(latest.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(latest.title)}</a>`
     : 'Sin artículos disponibles en este momento.';
   const inumetBody=inumet.updated_at
     ? `Pronóstico oficial actualizado ${escapeHtml(displayDate(inumet.updated_at))}.`
@@ -446,7 +470,7 @@ function renderSources(data){
   const box=document.getElementById('alertBox');
   if(alert?.active){
     box.className='alert-box active';
-    box.innerHTML=`<strong>Advertencia vigente de INUMET.</strong> ${escapeHtml(alert.summary)} <a href="${escapeHtml(alert.url)}" target="_blank" rel="noopener">Abrir advertencia</a>`;
+    box.innerHTML=`<strong>Advertencia vigente de INUMET.</strong> ${escapeHtml(alert.summary)} <a href="${escapeHtml(alert.url)}" target="_blank" rel="noopener noreferrer">Abrir advertencia</a>`;
   }else{
     box.className='alert-box';
     box.textContent='';
@@ -480,9 +504,9 @@ function renderInumet(day){
 function renderMetsul(day){
   const articles=day.metsul_articles||[];
   if(!articles.length){
-    return `<div class="source-note"><h3>MetSul</h3><p>Sin análisis específico. <a href="https://metsul.com/categoria/uruguai/" target="_blank" rel="noopener">Abrir MetSul</a>.</p></div>`;
+    return `<div class="source-note"><h3>MetSul</h3><p>Sin análisis específico. <a href="https://metsul.com/categoria/uruguai/" target="_blank" rel="noopener noreferrer">Abrir MetSul</a>.</p></div>`;
   }
-  const links=articles.map(article=>`<li><a href="${escapeHtml(article.url)}" target="_blank" rel="noopener">${escapeHtml(article.title)}</a></li>`).join('');
+  const links=articles.map(article=>`<li><a href="${escapeHtml(article.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(article.title)}</a></li>`).join('');
   return `<div class="source-note"><h3>MetSul</h3><ul>${links}</ul></div>`;
 }
 
@@ -554,7 +578,7 @@ function renderWeekends(data){
 function renderArticles(articles){
   const target=document.getElementById('articles');
   if(!articles?.length){target.innerHTML='<div class="error-state">No hay artículos disponibles.</div>';return;}
-  target.innerHTML=articles.slice(0,3).map(article=>`<a class="article-link" href="${escapeHtml(article.url)}" target="_blank" rel="noopener">
+  target.innerHTML=articles.slice(0,3).map(article=>`<a class="article-link" href="${escapeHtml(article.url)}" target="_blank" rel="noopener noreferrer">
     <span class="article-date">${escapeHtml(displayDate(article.published_at))}</span>
     <span class="article-title">${escapeHtml(article.title)}</span>
     <span class="article-excerpt">${escapeHtml(article.excerpt)}</span>

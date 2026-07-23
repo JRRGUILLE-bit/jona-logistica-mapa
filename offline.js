@@ -74,6 +74,19 @@
   `;
   document.head.appendChild(style);
 
+
+  const mainContent = document.querySelector('main');
+  if (mainContent) {
+    if (!mainContent.id) mainContent.id = 'main-content';
+    if (!document.querySelector('.skip-link')) {
+      const skipLink = document.createElement('a');
+      skipLink.className = 'skip-link';
+      skipLink.href = `#${mainContent.id}`;
+      skipLink.textContent = 'Saltar al contenido';
+      document.body.prepend(skipLink);
+    }
+  }
+
   const status = document.createElement('div');
   status.className = 'offline-status';
   status.setAttribute('role', 'status');

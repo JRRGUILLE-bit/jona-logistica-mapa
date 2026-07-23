@@ -35,7 +35,7 @@
     },
     {
       "src": "app-icon-512.svg",
-      "sizes": "512x512",
+      "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     },
@@ -55,7 +55,7 @@
       "icons": [
         {
           "src": "app-icon-512.svg",
-          "sizes": "512x512",
+          "sizes": "any",
           "type": "image/svg+xml"
         }
       ]
@@ -68,7 +68,7 @@
       "icons": [
         {
           "src": "app-icon-512.svg",
-          "sizes": "512x512",
+          "sizes": "any",
           "type": "image/svg+xml"
         }
       ]
@@ -81,7 +81,7 @@
       "icons": [
         {
           "src": "app-icon-512.svg",
-          "sizes": "512x512",
+          "sizes": "any",
           "type": "image/svg+xml"
         }
       ]

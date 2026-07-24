@@ -70,6 +70,13 @@
       "title_es": "Enchente avanza en la frontera oeste del Río Grande del Sur",
       "excerpt_es": "La inundación de Río Uruguay avanza en Fronteira Oeste y todavía alcanza el Noroeste y áreas del Medio Uruguay del Río Grande del Sur y Santa Catarina. Provoca desalojos, inundaciones e interrupciones en el transporte fluvial. El aumento del nivel del río es consecuencia del elevado volumen de lluvia registrado en los últimos días en [...]",
       "route": "direct"
+    },
+    "d3955cca39fea2340451deb8288417b41770da0aa82077d465b9e47c0f3d6f06": {
+      "title_pt": "Chuva, vento, enchentes e temporais trazem danos em 40% das cidades gaúchas",
+      "excerpt_pt": "O Rio Grande do Sul tem mais de 40% de seus municípios com danos por chuva, vento, temporais e enchentes após uma semana de instabilidade com o mau tempo que se iniciou na última sexta-feira (17), mostra levantamento oficial da Defesa Civil. Em apenas sete dias, mais de 200 municípios registraram danos provocados pela combinação […]",
+      "title_es": "Chuva, viento, inundaciones y temporales traen daños en el 40% de las ciudades gauchas",
+      "excerpt_es": "El Río Grande del Sur tiene más del 40% de sus municipios con daños por lluvia, viento, temporales y inundaciones después de una semana de inestabilidad con el mal tiempo que se inició el último viernes (17), muestra levantamiento oficial de la Defensa Civil. En apenas siete días, más de 200 municipios registraron daños provocados por la combinación [...]",
+      "route": "direct"
     }
   }
 }

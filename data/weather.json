@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T12:45:14-03:00",
+  "generated_at": "2026-07-24T14:12:05-03:00",
   "timezone": "America/Montevideo",
   "weekends": [
     {
@@ -899,10 +899,26 @@
     "metsul": {
       "status": "ok",
       "kind": "Análisis humanos",
-      "fetched_at": "2026-07-24T12:45:14-03:00",
+      "fetched_at": "2026-07-24T14:12:05-03:00",
       "page_url": "https://metsul.com/categoria/uruguai/",
       "api_url": "https://metsul.com/wp-json/wp/v2/posts?categories=23&per_page=12&_fields=id%2Cdate%2Cmodified%2Clink%2Ctitle%2Cexcerpt%2Ccontent%2Cauthor",
       "articles": [
+        {
+          "id": 267854,
+          "published_at": "2026-07-24T12:01:05",
+          "modified_at": "2026-07-24T13:41:48",
+          "title": "Enchente avanza en la frontera oeste del Río Grande del Sur",
+          "excerpt": "La inundación de Río Uruguay avanza en Fronteira Oeste y todavía alcanza el Noroeste y áreas del Medio Uruguay del Río Grande del Sur y Santa Catarina. Provoca desalojos, inundaciones e interrupciones en el transporte fluvial. El aumento del nivel del río es consecuencia del elevado volumen de lluvia registrado en los últimos días en [...]",
+          "url": "https://metsul.com/enchente-avanca-na-fronteira-oeste-do-rio-grande-do-sul/",
+          "author": 861,
+          "title_pt": "Enchente avança na Fronteira Oeste do Rio Grande do Sul",
+          "excerpt_pt": "A enchente pela cheia do Rio Uruguai avança na Fronteira Oeste e ainda atinge o Noroeste e áreas do Médio Uruguai do Rio Grande do Sul e Santa Catarina. Provoca desalojamentos, alagamentos e interrupções no transporte fluvial. O aumento do nível do rio é consequência do elevado volume de chuva registrado nos últimos dias em […]",
+          "language": "es",
+          "original_language": "pt",
+          "translation_status": "translated",
+          "translation_engine": "Argos Translate",
+          "translation_route": "direct"
+        },
         {
           "id": 267791,
           "published_at": "2026-07-22T19:39:30",
@@ -1046,22 +1062,6 @@
           "translation_status": "translated",
           "translation_engine": "Argos Translate",
           "translation_route": "direct"
-        },
-        {
-          "id": 267692,
-          "published_at": "2026-07-19T19:40:52",
-          "modified_at": "2026-07-19T19:40:52",
-          "title": "Chuva aumentará con riesgo de inundaciones y inundaciones",
-          "excerpt": "El fin de semana fue marcado por calor fuera del normal, viento Norte cerca y por encima de 100 km/h y temporais en Rio Grande do Sul con la lluvia avanzando por el estado, sobre todo este domingo, y tuvo acumulados altos en parte del territorio gaúcho. El calor fue más intenso en el Litoral Norte por la interacción del [...]",
-          "url": "https://metsul.com/chuva-vai-aumentar-com-risco-de-alagamentos-e-inundacoes/",
-          "author": 861,
-          "title_pt": "Chuva vai aumentar com risco de alagamentos e inundações",
-          "excerpt_pt": "O fim de semana foi marcado por calor fora do normal, vento Norte perto e acima de 100 km/h e temporais no Rio Grande do Sul com a chuva avançando pelo estado, sobretudo neste domingo, e teve acumulados altos em parte do território gaúcho. O calor foi mais intenso no Litoral Norte pela interação do […]",
-          "language": "es",
-          "original_language": "pt",
-          "translation_status": "translated",
-          "translation_engine": "Argos Translate",
-          "translation_route": "direct"
         }
       ],
       "translation": {
@@ -1070,14 +1070,14 @@
         "source_language": "pt",
         "target_language": "es",
         "route": "direct",
-        "translated_now": 0,
-        "from_cache": 10
+        "translated_now": 1,
+        "from_cache": 9
       }
     },
     "inumet": {
       "status": "ok",
       "kind": "Fuente oficial",
-      "fetched_at": "2026-07-24T12:45:14-03:00",
+      "fetched_at": "2026-07-24T14:12:05-03:00",
       "updated_at": "2026-07-24T12:00:00-03:00",
       "forecast_url": "https://www.inumet.gub.uy/tiempo/pronostico",
       "forecast": [
@@ -1145,7 +1145,7 @@
     "models": {
       "status": "ok",
       "kind": "Modelos numéricos",
-      "fetched_at": "2026-07-24T12:45:14-03:00",
+      "fetched_at": "2026-07-24T14:12:05-03:00",
       "provider": "Open-Meteo",
       "provider_url": "https://open-meteo.com/",
       "models": [

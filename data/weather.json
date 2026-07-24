@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T03:13:59-03:00",
+  "generated_at": "2026-07-24T03:39:44-03:00",
   "timezone": "America/Montevideo",
   "weekends": [
     {
@@ -899,7 +899,7 @@
     "metsul": {
       "status": "ok",
       "kind": "Análisis humanos",
-      "fetched_at": "2026-07-24T03:13:59-03:00",
+      "fetched_at": "2026-07-24T03:39:44-03:00",
       "page_url": "https://metsul.com/categoria/uruguai/",
       "api_url": "https://metsul.com/wp-json/wp/v2/posts?categories=23&per_page=12&_fields=id%2Cdate%2Cmodified%2Clink%2Ctitle%2Cexcerpt%2Ccontent%2Cauthor",
       "articles": [
@@ -1075,7 +1075,7 @@
       }
     },
     "inumet": {
-      "status": "ok",
+      "status": "stale",
       "kind": "Fuente oficial",
       "fetched_at": "2026-07-24T03:13:59-03:00",
       "updated_at": "2026-07-24T00:00:00-03:00",
@@ -1140,12 +1140,13 @@
         "active": false,
         "summary": "No hay advertencia meteorológica vigente.",
         "url": "https://www.inumet.gub.uy/alerta"
-      }
+      },
+      "error": "No se encontró la fecha de actualización de INUMET"
     },
     "models": {
       "status": "ok",
       "kind": "Modelos numéricos",
-      "fetched_at": "2026-07-24T03:13:59-03:00",
+      "fetched_at": "2026-07-24T03:39:44-03:00",
       "provider": "Open-Meteo",
       "provider_url": "https://open-meteo.com/",
       "models": [
@@ -1165,5 +1166,7 @@
       "errors": []
     }
   },
-  "errors": []
+  "errors": [
+    "inumet: No se encontró la fecha de actualización de INUMET"
+  ]
 }
